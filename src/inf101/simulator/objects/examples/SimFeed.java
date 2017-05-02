@@ -3,15 +3,19 @@ package inf101.simulator.objects.examples;
 import java.util.function.Consumer;
 
 import inf101.simulator.Direction;
+import inf101.simulator.MediaHelper;
 import inf101.simulator.Position;
 import inf101.simulator.objects.AbstractSimObject;
 import inf101.simulator.objects.IEdibleObject;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 
 public class SimFeed extends AbstractSimObject implements IEdibleObject {
 	private static final double NUTRITION_FACTOR = 10;
 	private static final double DIAMETER = 25;
+	private Image foodLook = MediaHelper.getImage("SlimeGif.gif");
+	
 	public static final Consumer<GraphicsContext> PAINTER = (GraphicsContext context) -> {
 		SimFeed obj = new SimFeed(new Position(0, 0), 1.0);
 		obj.hideAnnotations = true;
@@ -29,8 +33,10 @@ public class SimFeed extends AbstractSimObject implements IEdibleObject {
 	@Override
 	public void draw(GraphicsContext context) {
 		super.draw(context);
-		context.setFill(Color.CHOCOLATE);
-		context.fillOval(0, 0, getWidth(), getHeight());
+		context.scale(1, -1);
+		context.drawImage(foodLook, 0, 0, getWidth(), getHeight());
+//		context.setFill(Color.CHOCOLATE);
+//		context.fillOval(0, 0, getWidth(), getHeight());
 	}
 
 	@Override

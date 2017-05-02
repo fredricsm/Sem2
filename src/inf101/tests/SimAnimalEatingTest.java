@@ -68,7 +68,7 @@ public class SimAnimalEatingTest {
 		hab.addObject(sim1);
 		hab.addObject(feed1);
 
-		for (int i = 0; i < 200; i++) {
+		for (int i = 0; i < 2000; i++) {
 			hab.step();
 		}
 
