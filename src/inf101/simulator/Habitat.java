@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 import inf101.simulator.objects.ISimListener;
 import inf101.simulator.objects.ISimObject;
 import inf101.simulator.objects.SimEvent;
+import inf101.simulator.objects.examples.SimRepellant;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -75,6 +76,8 @@ public class Habitat {
 
 	}
 	private List<ISimObject> objects = new ArrayList<>();
+
+
 	protected double width;
 	protected double height;
 	private ISimObject selectedObject;
@@ -325,6 +328,8 @@ public class Habitat {
 		Position pos = thisObject.getPosition();
 		if (distanceLimit > 0) {
 			result.removeIf((ISimObject o) -> pos.distanceTo(o.getPosition()) > distanceLimit);
+			result.remove(thisObject instanceof SimRepellant);
+
 		}
 
 		Collections.sort(result, (ISimObject o1, ISimObject o2) -> Double.compare(pos.distanceTo(o1.getPosition()),
@@ -333,6 +338,15 @@ public class Habitat {
 		return result;
 	}
 
+
+
+	
+	
+	
+	
+	
+	
+	
 	private boolean outOfBounds(Position pos) {
 		return pos.getX() < -getWidth() //
 				|| pos.getX() > 2 * getWidth() //

@@ -14,7 +14,7 @@ import javafx.scene.paint.Color;
 public class SimFeed extends AbstractSimObject implements IEdibleObject {
 	private static final double NUTRITION_FACTOR = 10;
 	private static final double DIAMETER = 25;
-	private Image foodLook = MediaHelper.getImage("SlimeGif.gif");
+	private Image foodLook = MediaHelper.getImage("pipp.png");
 	
 	public static final Consumer<GraphicsContext> PAINTER = (GraphicsContext context) -> {
 		SimFeed obj = new SimFeed(new Position(0, 0), 1.0);

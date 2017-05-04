@@ -14,8 +14,9 @@ public class Setup {
 
 		for (int i = 0; i < 3; i++)
 			habitat.addObject(new SimRepellant(main.randomPos()));
-
-		SimMain.registerSimObjectFactory((Position pos, Habitat hab) -> new SimFeed(pos, main.getRandom().nextDouble()*2+0.5), "SimFeed™", SimFeed.PAINTER);
+		
+		SimMain.registerSimObjectFactory((Position pos, Habitat hab) -> new SimAnimal(pos, hab), "SimFeed™", "boulder.png");
+		SimMain.registerSimObjectFactory((Position pos, Habitat hab) -> new SimFeed(pos, main.getRandom().nextDouble()*2+0.5), "SimFeed™", "pipp.png");
 		SimMain.registerSimObjectFactory((Position pos, Habitat hab) -> new SimRepellant(pos), "SimRepellant™",
 				SimRepellant.PAINTER);
 	}

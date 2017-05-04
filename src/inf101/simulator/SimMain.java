@@ -5,7 +5,9 @@ import java.util.Map;
 import java.util.Random;
 import java.util.function.Consumer;
 
+import inf101.simulator.objects.ISimObject;
 import inf101.simulator.objects.ISimObjectFactory;
+import inf101.simulator.objects.examples.SimAnimal;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.beans.binding.Bindings;
@@ -43,6 +45,7 @@ public class SimMain extends Application {
 	private static final double MENU_WIDTH = 100.00;
 	private static final double BUTTON_WIDTH = 75.00;
 	private static SimMain instance;
+	
 	private static Map<String, ISimObjectFactory> factoryMap = new HashMap<>();
 	public static SimMain getInstance() {
 		return instance;
@@ -62,6 +65,8 @@ public class SimMain extends Application {
 	 *            A method object that takes a GraphicsContext and draws an icon
 	 *            for the factory (for use in the GUI)
 	 */
+	
+
 	public static void registerSimObjectFactory(ISimObjectFactory factory, String name,
 			Consumer<GraphicsContext> draw) {
 		Canvas canvas = new Canvas(BUTTON_WIDTH, BUTTON_WIDTH);
@@ -423,10 +428,16 @@ public class SimMain extends Application {
 //			System.out.println("Aspect: " + aspect + ", habitat size: " + habitat.getWidth() + "x" + habitat.getHeight());
 		});
 	}
-
 	protected void step() {
 		if (!paused) {
 			habitat.step();
+			ISimObjectFactory myFactory = new ISimObjectFactory() {
+				public ISimObject create(Position pos, Habitat hab) {
+				
+					return null;
+				}
+				};
+			
 			Setup.step(this, habitat);
 		}
 	}
