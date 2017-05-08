@@ -8,8 +8,8 @@ import org.junit.Test;
 import inf101.simulator.Habitat;
 import inf101.simulator.Position;
 import inf101.simulator.SimMain;
-import inf101.simulator.objects.examples.SimAnimal;
-import inf101.simulator.objects.examples.SimFeed;
+import inf101.simulator.objects.examples.SimFish;
+import inf101.simulator.objects.examples.SimFishFood;
 
 public class SimAnimalBestFoodTest {
 	private SimMain main;
@@ -26,11 +26,11 @@ public class SimAnimalBestFoodTest {
 	@Test
 	public void willFindBestFoodTest() {
 		Habitat hab = new Habitat(main, 500, 500);
-		SimAnimal sim1 = new SimAnimal(new Position(250, 250), hab);
-		SimFeed feed1 = new SimFeed(new Position(200, 250), 1.0);
-		SimFeed feed2 = new SimFeed(new Position(320, 250), .5);
-		SimFeed feed3 = new SimFeed(new Position(250, 320), 2.0);
-		SimFeed feed4 = new SimFeed(new Position(250, 220), 1.3);
+		SimFish sim1 = new SimFish(new Position(250, 250), hab);
+		SimFishFood feed1 = new SimFishFood(new Position(200, 250), 1.0);
+		SimFishFood feed2 = new SimFishFood(new Position(320, 250), .5);
+		SimFishFood feed3 = new SimFishFood(new Position(250, 320), 2.0);
+		SimFishFood feed4 = new SimFishFood(new Position(250, 220), 1.3);
 		hab.addObject(sim1);
 		hab.addObject(feed1);
 		hab.addObject(feed2);

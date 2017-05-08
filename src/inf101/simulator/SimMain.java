@@ -21,6 +21,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.Lighting;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.DragEvent;
@@ -30,6 +31,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -43,6 +45,8 @@ public class SimMain extends Application {
 	private static final double MENU_WIDTH = 100.00;
 	private static final double BUTTON_WIDTH = 75.00;
 	private static SimMain instance;
+	private Image backGround = MediaHelper.getImage("Background1.png");
+
 	
 	private static Map<String, ISimObjectFactory> factoryMap = new HashMap<>();
 	public static SimMain getInstance() {
@@ -50,6 +54,7 @@ public class SimMain extends Application {
 	}
 	public static void main(String[] args) {
 		launch(args);
+		
 	}
 	/**
 	 * Register a new object factory
@@ -152,6 +157,8 @@ public class SimMain extends Application {
 
 	private boolean guiIsRunning = false;
 
+	private AudioClip backGroundMusic;
+	
 	public SimMain() {
 		instance = this;
 	}
@@ -186,11 +193,16 @@ public class SimMain extends Application {
 		context.restore();
 
 	}
-
+	
+	public void music(){
+		 backGroundMusic  = new AudioClip(getClass().getResource("../simulator/sounds/Underthesea.wav").toString());
+		 backGroundMusic.play();
+	}
+	
 	private void drawBackground(GraphicsContext context) {
-		context.setFill(Color.BLACK);
+		context.drawImage(backGround,0,0, habitat.getWidth(), habitat.getHeight());
 		// context.fillRect(0, 0, bgCanvas.getWidth(), bgCanvas.getHeight());
-		context.fillRect(0, 0, habitat.getWidth(), habitat.getHeight());
+	//	context.fillRect(0, 0, habitat.getWidth(), habitat.getHeight());
 	}
 
 	/**
@@ -250,6 +262,8 @@ public class SimMain extends Application {
 				random.nextGaussian() * habitat.getHeight() / 4 + habitat.getHeight() / 2);
 	}
 
+	
+	
 	private void setup(double aspect) {
 //		System.out.println(aspect);
 		habitat = new Habitat(this, NOMINAL_WIDTH, NOMINAL_WIDTH / aspect);
@@ -430,7 +444,6 @@ public class SimMain extends Application {
 		if (!paused) {
 			habitat.step();
 		
-			
 			Setup.step(this, habitat);
 		}
 	}

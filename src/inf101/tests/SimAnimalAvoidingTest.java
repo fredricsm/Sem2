@@ -8,7 +8,7 @@ import org.junit.Test;
 import inf101.simulator.Habitat;
 import inf101.simulator.Position;
 import inf101.simulator.SimMain;
-import inf101.simulator.objects.examples.SimAnimal;
+import inf101.simulator.objects.examples.SimFish;
 import inf101.simulator.objects.examples.SimRepellant;
 
 public class SimAnimalAvoidingTest {
@@ -20,7 +20,7 @@ public class SimAnimalAvoidingTest {
 	@Test
 	public void avoidDangerTest1() {
 		Habitat hab = new Habitat(main, 2000, 500);
-		SimAnimal sim1 = new SimAnimal(new Position(250, 250), hab);
+		SimFish sim1 = new SimFish(new Position(250, 250), hab);
 		SimRepellant rep1 = new SimRepellant(new Position(550, 250));
 		hab.addObject(sim1);
 		hab.addObject(rep1);
@@ -43,7 +43,7 @@ public class SimAnimalAvoidingTest {
 	@Test
 	public void avoidDangerTest2() {
 		Habitat hab = new Habitat(main, 1000, 1000);
-		SimAnimal sim1 = new SimAnimal(new Position(250, 250), hab);
+		SimFish sim1 = new SimFish(new Position(250, 250), hab);
 		SimRepellant rep1 = new SimRepellant(new Position(500, 500));
 		hab.addObject(sim1);
 		hab.addObject(rep1);

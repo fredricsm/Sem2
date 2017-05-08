@@ -10,7 +10,7 @@ import inf101.simulator.objects.IEdibleObject;
 import inf101.simulator.objects.ISimListener;
 import inf101.simulator.objects.ISimObject;
 import inf101.simulator.objects.SimEvent;
-import inf101.simulator.objects.examples.SimFeed;
+import inf101.simulator.objects.examples.SimFishFood;
 import inf101.simulator.objects.examples.SimRepellant;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
