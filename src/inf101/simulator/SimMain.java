@@ -5,9 +5,7 @@ import java.util.Map;
 import java.util.Random;
 import java.util.function.Consumer;
 
-import inf101.simulator.objects.ISimObject;
 import inf101.simulator.objects.ISimObjectFactory;
-import inf101.simulator.objects.examples.SimAnimal;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.beans.binding.Bindings;
@@ -431,12 +429,7 @@ public class SimMain extends Application {
 	protected void step() {
 		if (!paused) {
 			habitat.step();
-			ISimObjectFactory myFactory = new ISimObjectFactory() {
-				public ISimObject create(Position pos, Habitat hab) {
-				
-					return null;
-				}
-				};
+		
 			
 			Setup.step(this, habitat);
 		}

@@ -6,9 +6,11 @@ import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+import inf101.simulator.objects.IEdibleObject;
 import inf101.simulator.objects.ISimListener;
 import inf101.simulator.objects.ISimObject;
 import inf101.simulator.objects.SimEvent;
+import inf101.simulator.objects.examples.SimFeed;
 import inf101.simulator.objects.examples.SimRepellant;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
@@ -76,6 +78,7 @@ public class Habitat {
 
 	}
 	private List<ISimObject> objects = new ArrayList<>();
+	private List<ISimObject> food = new ArrayList<>();
 
 
 	protected double width;
@@ -88,6 +91,8 @@ public class Habitat {
 	private Position mousePos;
 	private Position dragStartPos;
 
+	
+	
 	private List<Pair<ISimObject, ISimListener>> listeners = new ArrayList<>();
 
 	public Habitat(SimMain gui, double width, double height) {
@@ -116,6 +121,8 @@ public class Habitat {
 		objects.add(obj);
 	}
 
+
+	
 	/**
 	 * @return A list of all the objects in the habitat
 	 */
@@ -127,6 +134,8 @@ public class Habitat {
 				.collect(Collectors.toCollection(() -> new ArrayList<>(objects.size())));
 	}
 
+
+	
 	/**
 	 * @param pos
 	 *            A position
@@ -328,7 +337,6 @@ public class Habitat {
 		Position pos = thisObject.getPosition();
 		if (distanceLimit > 0) {
 			result.removeIf((ISimObject o) -> pos.distanceTo(o.getPosition()) > distanceLimit);
-			result.remove(thisObject instanceof SimRepellant);
 
 		}
 
@@ -339,7 +347,9 @@ public class Habitat {
 	}
 
 
+	
 
+	
 	
 	
 	

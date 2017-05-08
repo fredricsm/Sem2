@@ -28,6 +28,6 @@ public class Setup {
 	public static void step(SimMain main, Habitat habitat) {
 		if (main.getRandom().nextInt(300) == 0)
 			habitat.addObject(new SimFeed(main.randomPos(), main.getRandom().nextDouble()*2+0.5));
-
+		
 	}
 }
