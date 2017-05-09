@@ -8,7 +8,7 @@ import org.junit.Test;
 import inf101.simulator.Habitat;
 import inf101.simulator.Position;
 import inf101.simulator.SimMain;
-import inf101.simulator.objects.examples.SimFish;
+import inf101.simulator.objects.examples.SimShark;
 import inf101.simulator.objects.examples.SimFishFood;
 
 public class SimAnimalBestFoodTest {
@@ -26,7 +26,7 @@ public class SimAnimalBestFoodTest {
 	@Test
 	public void willFindBestFoodTest() {
 		Habitat hab = new Habitat(main, 500, 500);
-		SimFish sim1 = new SimFish(new Position(250, 250), hab);
+		SimShark sim1 = new SimShark(new Position(250, 250), hab);
 		SimFishFood feed1 = new SimFishFood(new Position(200, 250), 1.0);
 		SimFishFood feed2 = new SimFishFood(new Position(320, 250), .5);
 		SimFishFood feed3 = new SimFishFood(new Position(250, 320), 2.0);

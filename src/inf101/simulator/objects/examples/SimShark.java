@@ -18,20 +18,21 @@ import inf101.simulator.objects.SimEvent;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.media.AudioClip;
 
-public class SimFish extends AbstractMovingObject implements ISimListener {
+public class SimShark extends AbstractMovingObject implements ISimListener {
 
 	private static final double defaultSpeed = 1.0;
 	private Habitat habitat;
-	private Image animalCoat = MediaHelper.getImage("Shark.gif");
-	private double energy = 100;
-	
+	private Image animalCoat = MediaHelper.getImage("Shark.png");
+
+	private double energyX = 250;
+	private double energyY = 150;
+
 	SimEvent event = new SimEvent(this, "nom", null, "NOM");
 	Comparator<IEdibleObject> c;
 	List<IEdibleObject> food = new ArrayList<>();
 
-	public SimFish(Position pos, Habitat hab) {
+	public SimShark(Position pos, Habitat hab) {
 		super(new Direction(0), pos, defaultSpeed);
 		this.habitat = hab;
 		habitat.addListener(this, this);
@@ -41,24 +42,11 @@ public class SimFish extends AbstractMovingObject implements ISimListener {
 	@Override
 	public void draw(GraphicsContext context) {
 		super.draw(context);
-		// context.fillOval(20, 20, getWidth(), getHeight());
-		 double dir = getDirection().toAngle();
-		// System.out.println(dir);
-		// context.scale(1.0, 1.0);
+
+//		double dir = getDirection().toAngle();
 		context.drawImage(animalCoat, 0, 0, getWidth(), getHeight());
-		
-		// Implement code to switch direction of image depending on the
-
 		// direction image is walking in.
-		 if(dir < 90 || dir > -90){
-		 context.translate(-1.0, 1.0);
-		 }
-		 else if(dir > 90 || dir < -90 ){
-		 context.translate(1.0, -1.0);
-		// context.drawImage(animalCoat, 0, 0, getWidth(), getHeight());
-		//
-		 }
-
+		
 	}
 
 	
@@ -91,29 +79,29 @@ public class SimFish extends AbstractMovingObject implements ISimListener {
 
 	@Override
 	public double getHeight() {
-		return energy;
+		return energyY;
 	}
 
 	@Override
 	public double getWidth() {
-		return energy;
+		return energyX;
 	}
 
 	
 	@Override
 	public void step() {
-		List<ISimObject> nearbyObjects = habitat.nearbyObjects(this, getRadius() + 20000);
+		List<ISimObject> nearbyObjects = habitat.nearbyObjects(this, getRadius() + 200);
 		for (ISimObject o : nearbyObjects) {
-
 			if (o instanceof SimFishFood) {				
 				food.add((IEdibleObject) o);
-				
-				dir = dir.turnTowards(directionTo(getBestFood().getPosition()), 3);
+				dir = dir.turnTowards(directionTo(getBestFood().getPosition()), 1);
 				if (distanceTo(getBestFood()) < 20) {
 					dir = dir.turnTowards(directionTo(getBestFood().getPosition()), 5);
 					habitat.triggerEvent(event);
 					getBestFood().eat(getBestFood().getNutritionalValue());
-					energy = energy * 1.161;
+					energyX = energyX * 1.161;
+					energyY = energyY * 1.161;
+
 					food.clear();
 				}
 			
@@ -121,7 +109,7 @@ public class SimFish extends AbstractMovingObject implements ISimListener {
 			
 			else if (o instanceof SimRepellant) {
 				dir = dir.turnTowards(-90, 5);
-				accelerateTo(defaultSpeed * 1.5, 1);
+				accelerateTo(defaultSpeed * 2, 1);
 
 			}
 
@@ -134,8 +122,10 @@ public class SimFish extends AbstractMovingObject implements ISimListener {
 				accelerateTo(5 * defaultSpeed, 0.3);
 			}
 		}
-		accelerateTo(defaultSpeed*2, 0.1);
-		energy = energy * 0.9999198;
+		accelerateTo(defaultSpeed, 0.1);
+		energyX = energyX * 0.9999198;
+		energyY = energyY * 0.9999198;
+
 		super.step();
 
 	}
