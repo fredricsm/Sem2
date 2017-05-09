@@ -9,7 +9,7 @@ import inf101.simulator.Habitat;
 import inf101.simulator.Position;
 import inf101.simulator.SimMain;
 import inf101.simulator.objects.examples.SimShark;
-import inf101.simulator.objects.examples.SimFishFood;
+import inf101.simulator.objects.examples.SimTurtle;
 
 public class SimAnimalEatingTest {
 	private SimMain main;
@@ -24,7 +24,7 @@ public class SimAnimalEatingTest {
 	public void cantSeeFoodTest() {
 		Habitat hab = new Habitat(main, 2000, 500);
 		SimShark sim1 = new SimShark(new Position(250, 250), hab);
-		SimFishFood feed1 = new SimFishFood(new Position(150, 250), 1.0);
+		SimTurtle feed1 = new SimTurtle(new Position(150, 250), 1.0);
 		hab.addObject(sim1);
 		hab.addObject(feed1);
 
@@ -41,7 +41,7 @@ public class SimAnimalEatingTest {
 	@Test
 	public void foodDoesntDisappearTest() {
 		Habitat hab = new Habitat(main, 500, 500);
-		SimFishFood feed1 = new SimFishFood(new Position(350, 250), 1.0);
+		SimTurtle feed1 = new SimTurtle(new Position(350, 250), 1.0);
 		hab.addObject(feed1);
 
 		for (int i = 0; i < 1000; i++) {
@@ -64,7 +64,7 @@ public class SimAnimalEatingTest {
 	public void willEatFoodTest() {
 		Habitat hab = new Habitat(main, 500, 500);
 		SimShark sim1 = new SimShark(new Position(250, 250), hab);
-		SimFishFood feed1 = new SimFishFood(new Position(350, 250), 1.0);
+		SimTurtle feed1 = new SimTurtle(new Position(350, 250), 1.0);
 		hab.addObject(sim1);
 		hab.addObject(feed1);
 

@@ -8,12 +8,11 @@ import inf101.simulator.Habitat;
 import inf101.simulator.MediaHelper;
 import inf101.simulator.Position;
 import inf101.simulator.objects.AbstractMovingObject;
-import inf101.simulator.objects.ISimObject;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
 public class SimFishSchoolLeader extends AbstractMovingObject {
-	private Image fishSchool = MediaHelper.getImage("Shark.png");
+	private Image fishSchool = MediaHelper.getImage("FishSchool.png");
 	private Random random = new Random();
 	private Habitat habitat;
 	private static double defaultSpeed = 1.0;
@@ -29,14 +28,17 @@ public class SimFishSchoolLeader extends AbstractMovingObject {
 		context.drawImage(fishSchool, 0, 0, getWidth(), getHeight());
 	}
 
+	public Position getPosition(){
+		return pos;
+	}
 	@Override
 	public double getHeight() {
-		return 100;
+		return 35;
 	}
 
 	@Override
 	public double getWidth() {
-		return 150;
+		return 35;
 	}
 
 	@Override
@@ -60,7 +62,7 @@ public class SimFishSchoolLeader extends AbstractMovingObject {
 				accelerateTo(5 * defaultSpeed, 0.3);
 			}
 		}
-		accelerateTo(defaultSpeed, 0.1);
+		accelerateTo(defaultSpeed*0.5, 0.1);
 		super.step();
 	}
 }

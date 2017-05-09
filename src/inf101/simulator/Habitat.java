@@ -10,7 +10,8 @@ import inf101.simulator.objects.IEdibleObject;
 import inf101.simulator.objects.ISimListener;
 import inf101.simulator.objects.ISimObject;
 import inf101.simulator.objects.SimEvent;
-import inf101.simulator.objects.examples.SimFishFood;
+import inf101.simulator.objects.examples.SimTurtle;
+import inf101.simulator.objects.examples.SimFishSchoolLeader;
 import inf101.simulator.objects.examples.SimRepellant;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
@@ -90,8 +91,9 @@ public class Habitat {
 	private SimMain gui;
 	private Position mousePos;
 	private Position dragStartPos;
+	private SimFishSchoolLeader leader;
+	private List<ISimObject> allFish = new ArrayList<>();
 
-	
 	
 	private List<Pair<ISimObject, ISimListener>> listeners = new ArrayList<>();
 
@@ -135,6 +137,15 @@ public class Habitat {
 	}
 
 
+
+	public SimFishSchoolLeader getLeader(){
+		for(ISimObject o : allObjects()){
+			if(o instanceof SimFishSchoolLeader){
+				leader = (SimFishSchoolLeader) o;
+			}
+		}
+	return leader;
+	}
 	
 	/**
 	 * @param pos
@@ -221,6 +232,8 @@ public class Habitat {
 		return new Position(width / 2, height / 2);
 	}
 
+
+	
 	public double getHeight() {
 		return height;
 	}
@@ -349,7 +362,7 @@ public class Habitat {
 
 	
 
-	
+
 	
 	
 	
@@ -379,7 +392,6 @@ public class Habitat {
 	public void step() {
 		// for(int i = 0; i < ducks.size(); i++)
 		// ducks.get(i).step();
-
 		hoveredObject = null;
 		for (ISimObject obj : objects) {
 			if (obj.exists()) {

@@ -92,7 +92,7 @@ public class SimShark extends AbstractMovingObject implements ISimListener {
 	public void step() {
 		List<ISimObject> nearbyObjects = habitat.nearbyObjects(this, getRadius() + 200);
 		for (ISimObject o : nearbyObjects) {
-			if (o instanceof SimFishFood) {				
+			if (o instanceof SimTurtle) {				
 				food.add((IEdibleObject) o);
 				dir = dir.turnTowards(directionTo(getBestFood().getPosition()), 1);
 				if (distanceTo(getBestFood()) < 20) {

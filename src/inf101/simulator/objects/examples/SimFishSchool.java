@@ -17,7 +17,7 @@ public class SimFishSchool extends AbstractMovingObject {
 	private Random random = new Random();
 	private Habitat habitat;
 	private static double defaultSpeed = 1.0;
-
+	
 	public SimFishSchool(Position pos, Habitat hab) {
 		super(new Direction(0), pos, defaultSpeed);
 		this.habitat = hab;
@@ -41,35 +41,29 @@ public class SimFishSchool extends AbstractMovingObject {
 
 	@Override
 	public void step() {
-
 		/*
 		 * This bit of code will check if any nearby fish is in a given
 		 * vicinity, and turn towards it. A random count is also added to
 		 * provide sharper turns at given intervals.
 		 */
-		List<ISimObject> closeFish = habitat.nearbyObjects(this, getRadius() + 300);
-		
+		List<ISimObject> closeFish = habitat.nearbyObjects(this, getRadius() + 200);
 		for (ISimObject o : closeFish) {
-			SimFishSchoolLeader leader = null;
-			if (o instanceof SimFishSchool || o instanceof SimFishSchoolLeader) {
-				
-				if(o instanceof SimFishSchoolLeader){
-					 leader = new SimFishSchoolLeader(getPosition(), habitat);
-				}
+			if (o instanceof SimFishSchool) {				
 				SimFishSchool f = (SimFishSchool) o;
 				closeFish.add(f);
 				dir = dir.turnTowards(directionTo(f.getPosition()), 1);
-
-				if (closeFish.size() < 50) {
-					dir = dir.turnTowards(directionTo(leader.getPosition()), 1);
+				
+				if (closeFish.size() < 20) {
+					dir = dir.turnTowards(directionTo(habitat.getLeader().getPosition()),5);
+					accelerateTo(defaultSpeed*2, 0.5);
 				}
+				closeFish.clear();
 
 				 if (random.nextInt(50) == 0) {
 				 dir = dir.turnTowards(directionTo(f.getPosition()), 60);
 				 }
 
 				break;
-
 			}
 
 		}

@@ -10,13 +10,13 @@ import inf101.simulator.objects.IEdibleObject;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
-public class SimFishFood extends AbstractSimObject implements IEdibleObject {
+public class SimTurtle extends AbstractSimObject implements IEdibleObject {
 	private static final double NUTRITION_FACTOR = 10;
 	private static final double DIAMETER = 25;
-	private static Image foodLook = MediaHelper.getImage("pipp.png");
+	private static Image foodLook = MediaHelper.getImage("Turtle.png");
 
 	public static final Consumer<GraphicsContext> PAINTER = (GraphicsContext context) -> {
-		SimFishFood obj = new SimFishFood(new Position(0, 0), 1.0);
+		SimTurtle obj = new SimTurtle(new Position(0, 0), 1.0);
 		obj.hideAnnotations = true;
 		context.scale(1 / obj.getWidth(), 1 / obj.getHeight());
 		obj.draw(context);
@@ -24,7 +24,7 @@ public class SimFishFood extends AbstractSimObject implements IEdibleObject {
 
 	private double size = 1.0;
 
-	public SimFishFood(Position pos, double size) {
+	public SimTurtle(Position pos, double size) {
 		super(new Direction(0), pos);
 		this.size = size;
 	}
