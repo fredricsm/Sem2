@@ -44,25 +44,19 @@ public class SimFishSchoolLeader extends AbstractMovingObject {
 	@Override
 	public void step() {
 
-		/*
-		 * This bit of code will check if any nearby fish is in a given
-		 * vicinity, and turn towards it. A random count is also added to
-		 * provide sharper turns at given intervals.
-		 */
-		if (random.nextInt(10) == 0) {
-			dir = dir.turn(random.nextDouble() * 2);
-				}
-			
+		
+		dir = dir.turn(random.nextDouble()-0.2);
+		super.step();
+		accelerateTo(0.7*defaultSpeed, 0.2);
 		
 		// go towards center if we're close to the border
 		if (!habitat.contains(getPosition(), getRadius() * 1.2)) {
 			dir = dir.turnTowards(directionTo(habitat.getCenter()), 5);
 			if (!habitat.contains(getPosition(), getRadius())) {
 				// we're actually outside
-				accelerateTo(5 * defaultSpeed, 0.3);
+				accelerateTo(defaultSpeed, 0.3);
 			}
 		}
-		accelerateTo(defaultSpeed*0.5, 0.1);
-		super.step();
+
 	}
 }

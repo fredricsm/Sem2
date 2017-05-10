@@ -26,6 +26,7 @@ public class SimFishSchool extends AbstractMovingObject {
 	@Override
 	public void draw(GraphicsContext context) {
 		super.draw(context);
+	
 		context.drawImage(fishSchool, 0, 0, getWidth(), getHeight());
 	}
 

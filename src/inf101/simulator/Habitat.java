@@ -6,16 +6,15 @@ import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-import inf101.simulator.objects.IEdibleObject;
 import inf101.simulator.objects.ISimListener;
 import inf101.simulator.objects.ISimObject;
 import inf101.simulator.objects.SimEvent;
-import inf101.simulator.objects.examples.SimTurtle;
 import inf101.simulator.objects.examples.SimFishSchoolLeader;
-import inf101.simulator.objects.examples.SimRepellant;
+import inf101.simulator.objects.examples.SimShark;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 
 public class Habitat {
@@ -79,7 +78,6 @@ public class Habitat {
 
 	}
 	private List<ISimObject> objects = new ArrayList<>();
-	private List<ISimObject> food = new ArrayList<>();
 
 
 	protected double width;
@@ -92,8 +90,8 @@ public class Habitat {
 	private Position mousePos;
 	private Position dragStartPos;
 	private SimFishSchoolLeader leader;
-	private List<ISimObject> allFish = new ArrayList<>();
-
+	private SimShark shark;
+	private List<ISimObject> turtleList = new ArrayList<>();
 	
 	private List<Pair<ISimObject, ISimListener>> listeners = new ArrayList<>();
 
@@ -137,7 +135,16 @@ public class Habitat {
 	}
 
 
-
+	public SimShark getShark(){
+		for(ISimObject o : allObjects()){
+			if(o instanceof SimShark){
+				shark = (SimShark) o;
+			}
+		}
+	return shark;
+	}
+	
+	
 	public SimFishSchoolLeader getLeader(){
 		for(ISimObject o : allObjects()){
 			if(o instanceof SimFishSchoolLeader){
@@ -146,6 +153,16 @@ public class Habitat {
 		}
 	return leader;
 	}
+	
+	public List<ISimObject> listOfTurtles(){
+		for(ISimObject o : allObjects()){
+			if(o instanceof SimFishSchoolLeader){
+				turtleList.add(o);	
+			}
+		}
+	return turtleList;
+	}
+	
 	
 	/**
 	 * @param pos
@@ -232,6 +249,9 @@ public class Habitat {
 		return new Position(width / 2, height / 2);
 	}
 
+	public Position getBottom(){
+		return new Position(width/2, height/10);
+	}
 
 	
 	public double getHeight() {
@@ -388,6 +408,10 @@ public class Habitat {
 	public void removeObject(ISimObject obj) {
 		obj.destroy();
 	}
+	
+
+
+	
 
 	public void step() {
 		// for(int i = 0; i < ducks.size(); i++)

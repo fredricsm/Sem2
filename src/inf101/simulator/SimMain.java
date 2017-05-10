@@ -199,6 +199,7 @@ public class SimMain extends Application {
 		 backGroundMusic.play();
 	}
 	
+	
 	private void drawBackground(GraphicsContext context) {
 		context.drawImage(backGround,0,0, habitat.getWidth(), habitat.getHeight());
 		// context.fillRect(0, 0, bgCanvas.getWidth(), bgCanvas.getHeight());

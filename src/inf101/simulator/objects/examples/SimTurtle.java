@@ -1,20 +1,23 @@
 package inf101.simulator.objects.examples;
 
+import java.util.Random;
 import java.util.function.Consumer;
+
 
 import inf101.simulator.Direction;
 import inf101.simulator.MediaHelper;
 import inf101.simulator.Position;
-import inf101.simulator.objects.AbstractSimObject;
+import inf101.simulator.objects.AbstractMovingObject;
 import inf101.simulator.objects.IEdibleObject;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
-public class SimTurtle extends AbstractSimObject implements IEdibleObject {
+public class SimTurtle extends AbstractMovingObject implements IEdibleObject {
 	private static final double NUTRITION_FACTOR = 10;
 	private static final double DIAMETER = 25;
 	private static Image foodLook = MediaHelper.getImage("Turtle.png");
-
+	private Random r = new Random();
+	private double defaultSpeed = 1.0;
 	public static final Consumer<GraphicsContext> PAINTER = (GraphicsContext context) -> {
 		SimTurtle obj = new SimTurtle(new Position(0, 0), 1.0);
 		obj.hideAnnotations = true;
@@ -22,10 +25,10 @@ public class SimTurtle extends AbstractSimObject implements IEdibleObject {
 		obj.draw(context);
 	};
 
-	private double size = 1.0;
+	private double size = 3.0;
 
 	public SimTurtle(Position pos, double size) {
-		super(new Direction(0), pos);
+		super(new Direction(0), pos, size);
 		this.size = size;
 	}
 
@@ -63,5 +66,10 @@ public class SimTurtle extends AbstractSimObject implements IEdibleObject {
 
 	@Override
 	public void step() {
+		dir = dir.turn(r.nextDouble()-0.2);
+		accelerateTo(defaultSpeed, 0.2);
+		super.step();
+
+	
 	}
 }
