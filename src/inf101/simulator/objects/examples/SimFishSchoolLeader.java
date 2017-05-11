@@ -1,6 +1,5 @@
 package inf101.simulator.objects.examples;
 
-import java.util.List;
 import java.util.Random;
 
 import inf101.simulator.Direction;
@@ -12,7 +11,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
 public class SimFishSchoolLeader extends AbstractMovingObject {
-	private Image fishSchool = MediaHelper.getImage("FishSchool.png");
+	private Image fishSchool = MediaHelper.getImage("Nemo.gif");
 	private Random random = new Random();
 	private Habitat habitat;
 	private static double defaultSpeed = 1.0;

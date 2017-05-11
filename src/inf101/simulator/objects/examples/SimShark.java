@@ -1,13 +1,12 @@
 package inf101.simulator.objects.examples;
 
-import java.io.File;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import inf101.simulator.Direction;
 import inf101.simulator.Habitat;
 import inf101.simulator.MediaHelper;
 import inf101.simulator.Position;
+import inf101.simulator.SimMain;
 import inf101.simulator.objects.AbstractMovingObject;
 import inf101.simulator.objects.IEdibleObject;
 import inf101.simulator.objects.ISimListener;
@@ -15,39 +14,47 @@ import inf101.simulator.objects.ISimObject;
 import inf101.simulator.objects.SimEvent;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.media.AudioClip;
+import javafx.scene.paint.Color;
 
 public class SimShark extends AbstractMovingObject implements ISimListener {
-
-	private static final double defaultSpeed = 1.0;
+	private static final double defaultSpeed = 0.5;
 	private Habitat habitat;
-	private Image animalCoat = MediaHelper.getImage("Shark.png");
+	private Image animalCoat = MediaHelper.getImage("SharkAnim.gif");
+
 	private double energyX = 250;
 	private double energyY = 150;
-	private static AudioClip bite = new AudioClip(SimShark.class.getResourceAsStream("../simulator/sounds/SharkBite.wav").toString());
 	private	SimEvent event = new SimEvent(this, "nom", null, "NOM");
 	private List<IEdibleObject> food = new ArrayList<>();
+	private SimMain main;
 
-	public SimShark(Position pos, Habitat hab) {
+	public SimShark(Position pos, Habitat hab, SimMain main) {
 		super(new Direction(0), pos, defaultSpeed);
 		this.habitat = hab;
+		this.main = main;
 		habitat.addListener(this, this);
 	}
 
 	
 	@Override
 	public void draw(GraphicsContext context) {
-		super.draw(context);
-//		double dir = getDirection().toAngle();
-		context.drawImage(animalCoat, 0, 0, getWidth(), getHeight());
+		
+		double dir = getDirection().toAngle();
+		drawBar(context, energyX, 0, Color.RED, Color.GREEN);
+		if((dir <= 90 && dir >= -90)){
+			context.translate(0, getHeight());
+			context.scale(1, -1);
+			context.drawImage(animalCoat, 0, 0, getWidth(), getHeight());
+		}
+		else if(dir < -90 || dir < 180 ){
+			context.drawImage(animalCoat, 0, 0, getWidth(), getHeight());
+		}
+		
 		// direction image is walking in.
 		
 	}
 
-	
-	
+
 	public IEdibleObject getBestFood() {
-	
 		IEdibleObject best = food.get(0);
 				for(IEdibleObject edb : food){
 					if(food.isEmpty()){
@@ -86,28 +93,32 @@ public class SimShark extends AbstractMovingObject implements ISimListener {
 	
 	@Override
 	public void step() {
-		bite.play();
-		List<ISimObject> nearbyObjects = habitat.nearbyObjects(this, getRadius() + 200);
+		
+		List<ISimObject> nearbyObjects = habitat.nearbyObjects(this, getRadius() + 400);
 		for (ISimObject o : nearbyObjects) {
 			if (o instanceof SimTurtle) {				
 				food.add((IEdibleObject) o);
 				dir = dir.turnTowards(directionTo(getBestFood().getPosition()), 1);
+				accelerateTo(defaultSpeed*2, -0.2);
+
 				if (distanceTo(getBestFood()) < 100) {
 					accelerateTo(defaultSpeed*5, -0.2);
 					dir = dir.turnTowards(directionTo(getBestFood().getPosition()), 5);
 					habitat.triggerEvent(event);
 					getBestFood().eat(getBestFood().getNutritionalValue());
-					energyX = energyX * 1.1111111;
-					energyY = energyY * 1.111111;
+					energyX = energyX * 1.0011111;
+					energyY = energyY * 1.001111;
 
 					food.clear();
+					main.bite();
+
 				}
-			
+
 			}
 			
 			else if (o instanceof SimDolphin) {
 				dir = dir.turnTowards(-90, 5);
-				accelerateTo(defaultSpeed * 2, 1);
+				accelerateTo(defaultSpeed * 5, 1);
 
 			}
 
@@ -133,7 +144,7 @@ public class SimShark extends AbstractMovingObject implements ISimListener {
 	@Override
 	public void eventHappened(SimEvent event) {
 		event.getType();
-		say("BAAAK");
+		say("Food!");
 		// System.out.println("This happened: " + event);
 
 	}

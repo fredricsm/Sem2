@@ -26,7 +26,7 @@ public class SimAnimalBestFoodTest {
 	@Test
 	public void willFindBestFoodTest() {
 		Habitat hab = new Habitat(main, 500, 500);
-		SimShark sim1 = new SimShark(new Position(250, 250), hab);
+		SimShark sim1 = new SimShark(new Position(250, 250), hab, main);
 		SimTurtle feed1 = new SimTurtle(new Position(200, 250), 1.0);
 		SimTurtle feed2 = new SimTurtle(new Position(320, 250), .5);
 		SimTurtle feed3 = new SimTurtle(new Position(250, 320), 2.0);

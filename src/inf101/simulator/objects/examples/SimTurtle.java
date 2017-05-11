@@ -11,13 +11,14 @@ import inf101.simulator.objects.AbstractMovingObject;
 import inf101.simulator.objects.IEdibleObject;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
 
 public class SimTurtle extends AbstractMovingObject implements IEdibleObject {
 	private static final double NUTRITION_FACTOR = 10;
 	private static final double DIAMETER = 25;
-	private static Image foodLook = MediaHelper.getImage("Turtle.png");
+	private static Image animalCoat = MediaHelper.getImage("Turtle.gif");
 	private Random r = new Random();
-	private double defaultSpeed = 1.0;
+	private double defaultSpeed = 0.5;
 	public static final Consumer<GraphicsContext> PAINTER = (GraphicsContext context) -> {
 		SimTurtle obj = new SimTurtle(new Position(0, 0), 1.0);
 		obj.hideAnnotations = true;
@@ -34,10 +35,18 @@ public class SimTurtle extends AbstractMovingObject implements IEdibleObject {
 
 	@Override
 	public void draw(GraphicsContext context) {
-		super.draw(context);
-		context.scale(1, 1);
-		context.drawImage(foodLook, 0,0,getWidth(), getHeight());
-
+	
+		drawBar(context, getNutritionalValue(), 0, Color.RED, Color.GREEN);
+		double dir = getDirection().toAngle();
+		
+		if((dir <= 90 && dir >= -90)){
+			context.translate(0, getHeight());
+			context.scale(1, -1);
+			context.drawImage(animalCoat, 0, 0 , getWidth(), getHeight());
+		}
+		else if(dir < -90 || dir < 180 ){
+			context.drawImage(animalCoat, 0, 0, getWidth(), getHeight());
+		}
 	}
 
 	@Override

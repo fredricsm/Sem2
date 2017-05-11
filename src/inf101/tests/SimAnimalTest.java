@@ -16,7 +16,7 @@ public class SimAnimalTest {
 	@Test
 	public void doNothingTest() {
 		Habitat hab = new Habitat(main, 500, 500);
-		SimShark sim1 = new SimShark(new Position(250, 250), hab);
+		SimShark sim1 = new SimShark(new Position(250, 250), hab, main);
 		hab.addObject(sim1);
 
 		for (int i = 0; i < 1000; i++) {

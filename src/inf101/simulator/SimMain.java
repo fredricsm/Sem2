@@ -45,10 +45,11 @@ public class SimMain extends Application {
 	private static final double MENU_WIDTH = 100.00;
 	private static final double BUTTON_WIDTH = 75.00;
 	private static SimMain instance;
-	private Image backGround = MediaHelper.getImage("Background1.png");
+	private Image backGround = MediaHelper.getImage("Background3.jpg");
 
 	
 	private static Map<String, ISimObjectFactory> factoryMap = new HashMap<>();
+	
 	public static SimMain getInstance() {
 		return instance;
 	}
@@ -70,18 +71,20 @@ public class SimMain extends Application {
 	 */
 	
 
-	public static void registerSimObjectFactory(ISimObjectFactory factory, String name,
-			Consumer<GraphicsContext> draw) {
+	public static void registerSimObjectFactory(ISimObjectFactory factory, String name,	Consumer<GraphicsContext> draw) {
 		Canvas canvas = new Canvas(BUTTON_WIDTH, BUTTON_WIDTH);
 		GraphicsContext context = canvas.getGraphicsContext2D();
 		context.scale(canvas.getWidth(), canvas.getHeight());
 		draw.accept(context);
 		registerSimObjectFactory(factory, name, canvas);
 	}
+		
+	
 	private static void registerSimObjectFactory(ISimObjectFactory factory, String name, Node buttonArt) {
 		String hexString = "sim://" + Integer.toHexString(System.identityHashCode(factory));
 		factoryMap.put(hexString, factory);
 		Button button = new Button("", buttonArt);
+		
 
 		DropShadow shadow = new DropShadow();
 		button.setEffect(shadow);
@@ -92,7 +95,7 @@ public class SimMain extends Application {
 			sim.habitat.addObject(factory.create(sim.randomPos(), sim.habitat));
 			event.consume();
 		});
-
+		
 		button.addEventHandler(MouseEvent.DRAG_DETECTED, (MouseEvent event) -> {
 			Dragboard db = button.startDragAndDrop(TransferMode.ANY);
 			ClipboardContent content = new ClipboardContent();
@@ -134,6 +137,92 @@ public class SimMain extends Application {
 		img.setFitHeight(BUTTON_WIDTH);
 		registerSimObjectFactory(factory, name, img);
 	}
+	
+	
+	/**
+	 * Register a new object factory
+	 * 
+	 * The supplied draw method should draw an example of the object at position
+	 * (0,0) with width=1.0 and height=1.0. (It will be scaled appropriately)
+	 * 
+	 * @param factory
+	 *            A factory that produces ISimObjects
+	 * @param draw
+	 *            A method object that takes a GraphicsContext and draws an icon
+	 *            for the factory (for use in the GUI)
+	 */
+	public static void registerSimObjectFactory2(ISimObjectFactory factory, String name,	Consumer<GraphicsContext> draw) {
+		Canvas canvas = new Canvas(BUTTON_WIDTH, BUTTON_WIDTH);
+		GraphicsContext context = canvas.getGraphicsContext2D();
+		context.scale(canvas.getWidth(), canvas.getHeight());
+		draw.accept(context);
+		registerSimObjectFactory(factory, name, canvas);
+	}
+	
+	private static void registerSimObjectFactory2(ISimObjectFactory factory, String name, Node buttonArt) {
+		String hexString = "sim://" + Integer.toHexString(System.identityHashCode(factory));
+		factoryMap.put(hexString, factory);
+		Button bottomButton = new Button("", buttonArt);
+		
+
+		DropShadow shadow = new DropShadow();
+		bottomButton.setEffect(shadow);
+		Lighting lighting = new Lighting();
+
+		bottomButton.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
+			SimMain sim = SimMain.getInstance();
+			sim.habitat.addObject(factory.create(sim.randomPosBottom(), sim.habitat));
+			event.consume();
+		});
+		
+		bottomButton.addEventHandler(MouseEvent.DRAG_DETECTED, (MouseEvent event) -> {
+			Dragboard db = bottomButton.startDragAndDrop(TransferMode.ANY);
+			ClipboardContent content = new ClipboardContent();
+			content.putImage(buttonArt.snapshot(null, null));
+			content.putUrl(hexString);
+			content.putString(name);
+			db.setContent(content);
+			event.consume();
+		});
+		bottomButton.setOnDragDone((DragEvent event) -> {
+			bottomButton.setEffect(shadow);
+			event.consume();
+		});
+
+		// Adding the shadow when the mouse cursor is on
+		bottomButton.addEventHandler(MouseEvent.MOUSE_PRESSED, (MouseEvent e) -> {
+			bottomButton.setEffect(lighting);
+		});
+
+		// Removing the shadow when the mouse cursor is off
+		bottomButton.addEventHandler(MouseEvent.MOUSE_RELEASED, (MouseEvent e) -> {
+			bottomButton.setEffect(shadow);
+		});
+		getInstance().menu.getChildren().add(bottomButton);
+	}
+	
+	/**
+	 * Register a new object factory
+	 * 
+	 * @param factory
+	 *            A factory that produces ISimObjects
+	 * @param name
+	 *            (User-friendly) name of the object type
+	 * @param imageName
+	 *            The name of an image to use in the GUI
+	 */		public static void registerSimObjectFactory2(ISimObjectFactory factory, String name, String imageName) {
+			ImageView img = new ImageView(MediaHelper.getImage(imageName));
+			img.setFitWidth(BUTTON_WIDTH);
+			img.setFitHeight(BUTTON_WIDTH);
+			registerSimObjectFactory2(factory, name, img);
+		}
+	
+	
+	
+	
+	
+	
+	
 	private AnimationTimer timer;
 	private long nanosPerStep = 1000_000_000L / 100L;
 	private long timeBudget = nanosPerStep;
@@ -157,7 +246,10 @@ public class SimMain extends Application {
 
 	private boolean guiIsRunning = false;
 
-	private AudioClip backGroundMusic;
+	private AudioClip backGroundMusic = new AudioClip(getClass().getResource("../simulator/sounds/Underthesea.wav").toString());
+
+	private AudioClip click = new AudioClip(getClass().getResource("../simulator/sounds/DolphinNoise.wav").toString());
+	private AudioClip bite = new AudioClip(SimMain.class.getResource("../simulator/sounds/SharkBite.wav").toString());
 	
 	public SimMain() {
 		instance = this;
@@ -193,10 +285,18 @@ public class SimMain extends Application {
 		context.restore();
 
 	}
+	public void click(){
+		click.play();
+
+	}
 	
+	public void bite(){
+		bite.play();
+
+	}
 	public void music(){
-		 backGroundMusic  = new AudioClip(getClass().getResource("../simulator/sounds/Underthesea.wav").toString());
-		 backGroundMusic.play();
+		backGroundMusic.setVolume(0.5); 
+		backGroundMusic.play();
 	}
 	
 	
@@ -264,6 +364,11 @@ public class SimMain extends Application {
 	}
 
 	
+	//random position to generate plans and bottom feeders.
+	public Position randomPosBottom() {
+		return new Position(random.nextGaussian() * habitat.getWidth() / 4 + habitat.getWidth() / 2, //
+				random.nextGaussian() * habitat.getHeight() / 17);
+	}
 	
 	private void setup(double aspect) {
 //		System.out.println(aspect);

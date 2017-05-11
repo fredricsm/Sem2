@@ -3,18 +3,19 @@ package inf101.simulator;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import inf101.simulator.objects.ISimListener;
 import inf101.simulator.objects.ISimObject;
 import inf101.simulator.objects.SimEvent;
+import inf101.simulator.objects.examples.SimDolphin;
 import inf101.simulator.objects.examples.SimFishSchoolLeader;
 import inf101.simulator.objects.examples.SimShark;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 
 public class Habitat {
@@ -92,8 +93,11 @@ public class Habitat {
 	private SimFishSchoolLeader leader;
 	private SimShark shark;
 	private List<ISimObject> turtleList = new ArrayList<>();
-	
+	private Random r = new Random();
 	private List<Pair<ISimObject, ISimListener>> listeners = new ArrayList<>();
+
+
+	private SimDolphin dolphin;
 
 	public Habitat(SimMain gui, double width, double height) {
 		this.gui = gui;
@@ -143,6 +147,22 @@ public class Habitat {
 		}
 	return shark;
 	}
+	
+	public SimDolphin getDolphin(){
+		for(ISimObject o : allObjects()){
+			if(o instanceof SimDolphin){
+				dolphin = (SimDolphin) o;
+				
+			}
+		}
+	return dolphin;
+	}
+	
+	public int randomNr(){
+		int a = r.nextInt(5);
+		return a;
+	}
+	
 	
 	
 	public SimFishSchoolLeader getLeader(){
@@ -249,10 +269,16 @@ public class Habitat {
 		return new Position(width / 2, height / 2);
 	}
 
+	
 	public Position getBottom(){
-		return new Position(width/2, height/10);
+		return new Position(950,0);
 	}
-
+	public Position getLeft(){
+		return new Position(0,0);
+	}
+	public Position getRight(){
+		return new Position( 1900,0);
+	}
 	
 	public double getHeight() {
 		return height;
@@ -380,15 +406,6 @@ public class Habitat {
 	}
 
 
-	
-
-
-	
-	
-	
-	
-	
-	
 	
 	private boolean outOfBounds(Position pos) {
 		return pos.getX() < -getWidth() //
