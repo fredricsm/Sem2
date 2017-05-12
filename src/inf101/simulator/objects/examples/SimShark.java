@@ -25,12 +25,10 @@ public class SimShark extends AbstractMovingObject implements ISimListener {
 	private double energyY = 150;
 	private SimEvent event = new SimEvent(this, "nom", null, "NOM");
 	private List<IEdibleObject> food = new ArrayList<>();
-	private SimMain main;
-	
+
 	public SimShark(Position pos, Habitat hab, SimMain main) {
 		super(new Direction(0), pos, defaultSpeed);
 		this.habitat = hab;
-		this.main = main;
 		habitat.addListener(this, this);
 	}
 
@@ -62,10 +60,11 @@ public class SimShark extends AbstractMovingObject implements ISimListener {
 		return best;
 
 	}
-	public void createResidue(){
+
+	public void createResidue() {
 		habitat.addObject(new SimResidue(pos, habitat));
 	}
-	
+
 	public IEdibleObject getClosestFood() {
 		for (ISimObject obj : habitat.nearbyObjects(this, getRadius() + 200)) {
 			if (obj instanceof IEdibleObject) {
@@ -105,8 +104,8 @@ public class SimShark extends AbstractMovingObject implements ISimListener {
 					energyX = energyX * 1.0019111;
 					energyY = energyY * 1.001911;
 					food.clear();
-					main.bite();
-					
+					// main.bite();
+
 				}
 
 			}

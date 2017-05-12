@@ -47,16 +47,17 @@ public class SimMain extends Application {
 	private static SimMain instance;
 	private Image backGround = MediaHelper.getImage("background3.jpg");
 
-	
 	private static Map<String, ISimObjectFactory> factoryMap = new HashMap<>();
-	
+
 	public static SimMain getInstance() {
 		return instance;
 	}
+
 	public static void main(String[] args) {
 		launch(args);
-		
+
 	}
+
 	/**
 	 * Register a new object factory
 	 * 
@@ -69,22 +70,20 @@ public class SimMain extends Application {
 	 *            A method object that takes a GraphicsContext and draws an icon
 	 *            for the factory (for use in the GUI)
 	 */
-	
 
-	public static void registerSimObjectFactory(ISimObjectFactory factory, String name,	Consumer<GraphicsContext> draw) {
+	public static void registerSimObjectFactory(ISimObjectFactory factory, String name,
+			Consumer<GraphicsContext> draw) {
 		Canvas canvas = new Canvas(BUTTON_WIDTH, BUTTON_WIDTH);
 		GraphicsContext context = canvas.getGraphicsContext2D();
 		context.scale(canvas.getWidth(), canvas.getHeight());
 		draw.accept(context);
 		registerSimObjectFactory(factory, name, canvas);
 	}
-		
-	
+
 	private static void registerSimObjectFactory(ISimObjectFactory factory, String name, Node buttonArt) {
 		String hexString = "sim://" + Integer.toHexString(System.identityHashCode(factory));
 		factoryMap.put(hexString, factory);
 		Button button = new Button("", buttonArt);
-		
 
 		DropShadow shadow = new DropShadow();
 		button.setEffect(shadow);
@@ -95,7 +94,7 @@ public class SimMain extends Application {
 			sim.habitat.addObject(factory.create(sim.randomPos(), sim.habitat));
 			event.consume();
 		});
-		
+
 		button.addEventHandler(MouseEvent.DRAG_DETECTED, (MouseEvent event) -> {
 			Dragboard db = button.startDragAndDrop(TransferMode.ANY);
 			ClipboardContent content = new ClipboardContent();
@@ -121,6 +120,7 @@ public class SimMain extends Application {
 		});
 		getInstance().menu.getChildren().add(button);
 	}
+
 	/**
 	 * Register a new object factory
 	 * 
@@ -137,8 +137,7 @@ public class SimMain extends Application {
 		img.setFitHeight(BUTTON_WIDTH);
 		registerSimObjectFactory(factory, name, img);
 	}
-	
-	
+
 	/**
 	 * Register a new object factory
 	 * 
@@ -146,24 +145,25 @@ public class SimMain extends Application {
 	 * (0,0) with width=1.0 and height=1.0. (It will be scaled appropriately)
 	 * 
 	 * @param factory
-	 *            A factory that produces ISimObjects within a certain area of the canvas
+	 *            A factory that produces ISimObjects within a certain area of
+	 *            the canvas
 	 * @param draw
 	 *            A method object that takes a GraphicsContext and draws an icon
 	 *            for the factory (for use in the GUI)
 	 */
-	public static void registerSimObjectFactory2(ISimObjectFactory factory, String name,	Consumer<GraphicsContext> draw) {
+	public static void registerSimObjectFactory2(ISimObjectFactory factory, String name,
+			Consumer<GraphicsContext> draw) {
 		Canvas canvas = new Canvas(BUTTON_WIDTH, BUTTON_WIDTH);
 		GraphicsContext context = canvas.getGraphicsContext2D();
 		context.scale(canvas.getWidth(), canvas.getHeight());
 		draw.accept(context);
 		registerSimObjectFactory(factory, name, canvas);
 	}
-	
+
 	private static void registerSimObjectFactory2(ISimObjectFactory factory, String name, Node buttonArt) {
 		String hexString = "sim://" + Integer.toHexString(System.identityHashCode(factory));
 		factoryMap.put(hexString, factory);
 		Button bottomButton = new Button("", buttonArt);
-		
 
 		DropShadow shadow = new DropShadow();
 		bottomButton.setEffect(shadow);
@@ -174,7 +174,7 @@ public class SimMain extends Application {
 			sim.habitat.addObject(factory.create(sim.randomPosBottom(), sim.habitat));
 			event.consume();
 		});
-		
+
 		bottomButton.addEventHandler(MouseEvent.DRAG_DETECTED, (MouseEvent event) -> {
 			Dragboard db = bottomButton.startDragAndDrop(TransferMode.ANY);
 			ClipboardContent content = new ClipboardContent();
@@ -200,29 +200,25 @@ public class SimMain extends Application {
 		});
 		getInstance().menu.getChildren().add(bottomButton);
 	}
-	
+
 	/**
 	 * Register a new object factory
 	 * 
 	 * @param factory
-	 *            A factory that produces ISimObjects in the bottom region of the canvas
+	 *            A factory that produces ISimObjects in the bottom region of
+	 *            the canvas
 	 * @param name
 	 *            (User-friendly) name of the object type
 	 * @param imageName
 	 *            The name of an image to use in the GUI
-	 */		public static void registerSimObjectFactory2(ISimObjectFactory factory, String name, String imageName) {
-			ImageView img = new ImageView(MediaHelper.getImage(imageName));
-			img.setFitWidth(BUTTON_WIDTH);
-			img.setFitHeight(BUTTON_WIDTH);
-			registerSimObjectFactory2(factory, name, img);
-		}
-	
-	
-	
-	
-	
-	
-	
+	 */
+	public static void registerSimObjectFactory2(ISimObjectFactory factory, String name, String imageName) {
+		ImageView img = new ImageView(MediaHelper.getImage(imageName));
+		img.setFitWidth(BUTTON_WIDTH);
+		img.setFitHeight(BUTTON_WIDTH);
+		registerSimObjectFactory2(factory, name, img);
+	}
+
 	private AnimationTimer timer;
 	private long nanosPerStep = 1000_000_000L / 100L;
 	private long timeBudget = nanosPerStep;
@@ -246,7 +242,8 @@ public class SimMain extends Application {
 
 	private boolean guiIsRunning = false;
 
-	private AudioClip backGroundMusic = new AudioClip(getClass().getResource("../simulator/sounds/Underthesea.wav").toString());
+	private AudioClip backGroundMusic = new AudioClip(
+			getClass().getResource("../simulator/sounds/Underthesea.wav").toString());
 
 	private AudioClip click = new AudioClip(getClass().getResource("../simulator/sounds/DolphinNoise.wav").toString());
 	private AudioClip bite = new AudioClip(SimMain.class.getResource("../simulator/sounds/SharkBite.wav").toString());
@@ -286,44 +283,46 @@ public class SimMain extends Application {
 		context.restore();
 
 	}
-	
+
 	/**
 	 * @return sound and volume for dolphin
 	 */
-	public void click(){
+	public void click() {
 		click.setVolume(0.3);
 		click.play();
 
 	}
+
 	/**
 	 * @return sound and volume for crab
 	 */
-	public void nom(){
+	public void nom() {
 		nom.setVolume(0.3);
 		nom.play();
 
 	}
+
 	/**
 	 * @return sound and volume for shark
 	 */
-	public void bite(){
+	public void bite() {
 		bite.setVolume(0.3);
 		bite.play();
 
 	}
+
 	/**
 	 * @return sound and volume for backgroundmusic
 	 */
-	public void music(){
-		backGroundMusic.setVolume(0.3); 
+	public void music() {
+		backGroundMusic.setVolume(0.3);
 		backGroundMusic.play();
 	}
-	
-	
+
 	private void drawBackground(GraphicsContext context) {
-		context.drawImage(backGround,0,0, habitat.getWidth(), habitat.getHeight());
+		context.drawImage(backGround, 0, 0, habitat.getWidth(), habitat.getHeight());
 		// context.fillRect(0, 0, bgCanvas.getWidth(), bgCanvas.getHeight());
-	//	context.fillRect(0, 0, habitat.getWidth(), habitat.getHeight());
+		// context.fillRect(0, 0, habitat.getWidth(), habitat.getHeight());
 	}
 
 	/**
@@ -383,15 +382,14 @@ public class SimMain extends Application {
 				random.nextGaussian() * habitat.getHeight() / 4 + habitat.getHeight() / 2);
 	}
 
-	
-	//random position to generate plans and bottom feeders.
+	// random position to generate plans and bottom feeders.
 	public Position randomPosBottom() {
 		return new Position(random.nextGaussian() * habitat.getWidth() / 4 + habitat.getWidth() / 2, //
 				random.nextGaussian() * habitat.getHeight() / 17);
 	}
-	
+
 	private void setup(double aspect) {
-//		System.out.println(aspect);
+		// System.out.println(aspect);
 		habitat = new Habitat(this, NOMINAL_WIDTH, NOMINAL_WIDTH / aspect);
 		Setup.setup(this, habitat);
 	}
@@ -441,7 +439,7 @@ public class SimMain extends Application {
 			} else if (code == KeyCode.B) {
 				showBars = !showBars;
 				event.consume();
-			} else if(habitat != null) {
+			} else if (habitat != null) {
 				habitat.keyPressed(event);
 			}
 		});
@@ -557,19 +555,22 @@ public class SimMain extends Application {
 		mainCanvas.widthProperty().addListener((ObservableValue<? extends Number> v, Number oldV, Number newV) -> {
 			double aspect = mainCanvas.getWidth() / mainCanvas.getHeight();
 			habitat.height = NOMINAL_WIDTH / aspect;
-//			System.out.println("Aspect: " + aspect + ", habitat size: " + habitat.getWidth() + "x" + habitat.getHeight());
+			// System.out.println("Aspect: " + aspect + ", habitat size: " +
+			// habitat.getWidth() + "x" + habitat.getHeight());
 		});
 
 		mainCanvas.heightProperty().addListener((ObservableValue<? extends Number> v, Number oldV, Number newV) -> {
 			double aspect = mainCanvas.getWidth() / mainCanvas.getHeight();
 			habitat.height = NOMINAL_WIDTH / aspect;
-//			System.out.println("Aspect: " + aspect + ", habitat size: " + habitat.getWidth() + "x" + habitat.getHeight());
+			// System.out.println("Aspect: " + aspect + ", habitat size: " +
+			// habitat.getWidth() + "x" + habitat.getHeight());
 		});
 	}
+
 	protected void step() {
 		if (!paused) {
 			habitat.step();
-		
+
 			Setup.step(this, habitat);
 		}
 	}

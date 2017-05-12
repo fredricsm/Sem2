@@ -13,11 +13,11 @@ import javafx.scene.image.Image;
 
 public class SimPlants extends AbstractSimObject {
 	private static final double DIAMETER = 50;
-	
+
 	private static final Random r = new Random();
 	private int size = r.nextInt(5);
 	private int rPlant = r.nextInt(7);
-	
+
 	private Image plant1 = MediaHelper.getImage("plant1.png");
 	private Image plant2 = MediaHelper.getImage("plant2.png");
 	private Image plant3 = MediaHelper.getImage("plant3.png");
@@ -26,14 +26,12 @@ public class SimPlants extends AbstractSimObject {
 	private Image plant6 = MediaHelper.getImage("plant6.png");
 	private Image plant7 = MediaHelper.getImage("plant7.png");
 	private Image plant8 = MediaHelper.getImage("plant8.png");
-	
 
 	private List<Image> plantList = new ArrayList<>();
 
-	
 	public SimPlants(Position pos) {
 		super(new Direction(0), pos);
-	
+
 		plantList.add(plant1);
 		plantList.add(plant2);
 		plantList.add(plant3);
@@ -44,10 +42,6 @@ public class SimPlants extends AbstractSimObject {
 		plantList.add(plant8);
 	}
 
-
-	
-	
-	
 	@Override
 	public void draw(GraphicsContext context) {
 		context.translate(0, getHeight());

@@ -28,7 +28,7 @@ public class SimDolphin extends AbstractMovingObject{
 	public SimDolphin( Position pos, Habitat hab, SimMain main) {
 		super(new Direction(0), pos, defaultSpeed);
 		this.habitat = hab;
-		main.click();
+		//main.click();
 	
 	}
 

@@ -182,7 +182,6 @@ public class Direction {
 	public Direction turnRight() {
 		return turn(-90.0);
 	}
-	
 
 	/**
 	 * Turn slightly towards a direction

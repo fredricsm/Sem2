@@ -27,9 +27,10 @@ public class SimFishSchoolLeader extends AbstractMovingObject {
 		context.drawImage(fishSchool, 0, 0, getWidth(), getHeight());
 	}
 
-	public Position getPosition(){
+	public Position getPosition() {
 		return pos;
 	}
+
 	@Override
 	public double getHeight() {
 		return 35;
@@ -43,11 +44,10 @@ public class SimFishSchoolLeader extends AbstractMovingObject {
 	@Override
 	public void step() {
 
-		
-		dir = dir.turn(random.nextDouble()-0.2);
+		dir = dir.turn(random.nextDouble() - 0.2);
 		super.step();
-		accelerateTo(0.7*defaultSpeed, 0.2);
-		
+		accelerateTo(0.7 * defaultSpeed, 0.2);
+
 		// go towards center if we're close to the border
 		if (!habitat.contains(getPosition(), getRadius() * 1.2)) {
 			dir = dir.turnTowards(directionTo(habitat.getCenter()), 5);

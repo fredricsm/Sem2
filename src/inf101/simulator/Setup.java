@@ -4,7 +4,6 @@ import inf101.simulator.objects.examples.SimCrab;
 import inf101.simulator.objects.examples.SimDolphin;
 import inf101.simulator.objects.examples.SimFishSchool;
 import inf101.simulator.objects.examples.SimFishSchoolLeader;
-import inf101.simulator.objects.examples.SimKraken;
 import inf101.simulator.objects.examples.SimPlants;
 import inf101.simulator.objects.examples.SimResidue;
 import inf101.simulator.objects.examples.SimShark;
@@ -16,7 +15,7 @@ public class Setup {
 	public static void setup(SimMain main, Habitat habitat) {
 
 		habitat.addObject(new SimShark(new Position(400, 400), habitat, main));
-		main.music();
+		//main.music();
 
 		habitat.addObject(new SimFishSchoolLeader(new Position(20, 20), habitat));
 

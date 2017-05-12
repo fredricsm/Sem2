@@ -1,6 +1,5 @@
 package inf101.simulator.objects.examples;
 
-
 import java.util.Random;
 
 import inf101.simulator.Direction;
@@ -19,7 +18,7 @@ public class SimKraken extends AbstractMovingObject {
 	private Habitat habitat;
 	private Image animalCoat = MediaHelper.getImage("kraken.png");
 	private Random r = new Random();
-	
+
 	public SimKraken(Position pos, Habitat hab, SimMain main) {
 		super(new Direction(0), pos, defaultSpeed);
 		this.habitat = hab;
@@ -65,11 +64,9 @@ public class SimKraken extends AbstractMovingObject {
 
 	@Override
 	public void step() {
-		
-		dir = dir.turn(r.nextDouble()-0.2);
 
+		dir = dir.turn(r.nextDouble() - 0.2);
 
-		
 		// go towards center if we're close to the border
 		if (!habitat.contains(getPosition(), getRadius() * 1.2)) {
 			dir = dir.turnTowards(directionTo(habitat.getCenter()), 5);
@@ -81,8 +78,5 @@ public class SimKraken extends AbstractMovingObject {
 		super.step();
 
 	}
-
-
-	
 
 }

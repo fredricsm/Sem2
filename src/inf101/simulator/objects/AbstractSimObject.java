@@ -15,16 +15,12 @@ public abstract class AbstractSimObject implements ISimObject {
 	protected boolean hideAnnotations = false;
 	private String message = null;
 	private int messageTime = 0;
-	
-	
-	
+
 	public AbstractSimObject(Direction dir, Position pos) {
 		this.dir = dir;
 		this.pos = pos;
 	}
 
-	
-	
 	@Override
 	public boolean contains(Position pos) {
 		return getX() - getWidth() / 2 <= pos.getX() && pos.getX() <= getX() + getWidth() / 2 //
@@ -162,7 +158,6 @@ public abstract class AbstractSimObject implements ISimObject {
 	public Position getPosition() {
 		return pos;
 	}
-
 
 	@Override
 	public double getRadius() {

@@ -9,16 +9,13 @@ import inf101.simulator.objects.IEdibleObject;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
-public class SimResidue extends AbstractMovingObject implements IEdibleObject{
+public class SimResidue extends AbstractMovingObject implements IEdibleObject {
 
-	
 	public SimResidue(Position pos, Habitat hab) {
 		super(new Direction(0), pos, defaultSpeed);
 		this.habitat = hab;
 
 	}
-
-
 
 	private static final double NUTRITION_FACTOR = 10;
 
@@ -27,15 +24,14 @@ public class SimResidue extends AbstractMovingObject implements IEdibleObject{
 	private Habitat habitat;
 	double size = 3.0;
 	private double DIAMETER = 10;
-	
+
 	public void draw(GraphicsContext context) {
-		
+
 		context.drawImage(animalCoat, 0, 0, getWidth(), getHeight());
 		super.draw(context);
-	
-	
+
 	}
-	
+
 	@Override
 	public double getHeight() {
 		// TODO Auto-generated method stub
@@ -55,9 +51,8 @@ public class SimResidue extends AbstractMovingObject implements IEdibleObject{
 			destroy();
 		}
 		super.step();
-		
-	}
 
+	}
 
 	@Override
 	public double eat(double howMuch) {
@@ -65,20 +60,14 @@ public class SimResidue extends AbstractMovingObject implements IEdibleObject{
 		size -= deltaSize;
 		if (size == 0)
 			destroy();
-		
-		return deltaSize * NUTRITION_FACTOR;		
+
+		return deltaSize * NUTRITION_FACTOR;
 	}
-
-
-
 
 	@Override
 	public double getNutritionalValue() {
 		// TODO Auto-generated method stub
-		return NUTRITION_FACTOR*size;
+		return NUTRITION_FACTOR * size;
 	}
 
-	
-	
-	
 }

@@ -3,7 +3,6 @@ package inf101.simulator;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -47,7 +46,7 @@ public class Habitat {
 			if (!(obj instanceof Pair)) {
 				return false;
 			}
-			Pair<?,?> other = (Pair<?,?>) obj;
+			Pair<?, ?> other = (Pair<?, ?>) obj;
 			if (t == null) {
 				if (other.t != null) {
 					return false;
@@ -80,6 +79,7 @@ public class Habitat {
 		}
 
 	}
+
 	private List<ISimObject> objects = new ArrayList<>();
 
 	protected double width;
@@ -91,16 +91,14 @@ public class Habitat {
 	private SimMain gui;
 	private Position mousePos;
 	private Position dragStartPos;
-	
+
 	private SimFishSchoolLeader leader;
 	private SimShark shark;
 	private SimTurtle turtle;
 	private SimResidue residue;
-	
-	private List<ISimObject> turtleList = new ArrayList<>();
-	private Random r = new Random();
-	private List<Pair<ISimObject, ISimListener>> listeners = new ArrayList<>();
 
+	private List<ISimObject> turtleList = new ArrayList<>();
+	private List<Pair<ISimObject, ISimListener>> listeners = new ArrayList<>();
 
 	private SimDolphin dolphin;
 
@@ -130,12 +128,10 @@ public class Habitat {
 		objects.add(obj);
 	}
 
-
 	public double turtleCount(double turtleCount) {
 		return turtleCount;
 	}
 
-	
 	/**
 	 * @return A list of all the objects in the habitat
 	 */
@@ -149,88 +145,89 @@ public class Habitat {
 
 	/**
 	 * @param double
-	 *            
+	 * 
 	 * @return Nutritional Value
 	 */
-	public double getResidueNutrition(){
-		for(ISimObject o : allObjects()){
-			if(o instanceof SimResidue){
+	public double getResidueNutrition() {
+		for (ISimObject o : allObjects()) {
+			if (o instanceof SimResidue) {
 				residue = (SimResidue) o;
 			}
 		}
-	return residue.getNutritionalValue();
+		return residue.getNutritionalValue();
 	}
-	
+
 	/**
 	 * @param object
-	 *            
+	 * 
 	 * @return the object shark
 	 */
-	public SimShark getShark(){
-		for(ISimObject o : allObjects()){
-			if(o instanceof SimShark){
+	public SimShark getShark() {
+		for (ISimObject o : allObjects()) {
+			if (o instanceof SimShark) {
 				shark = (SimShark) o;
 			}
 		}
-	return shark;
+		return shark;
 	}
+
 	/**
 	 * @param object
-	 *            
+	 * 
 	 * @return the object turtle
 	 */
-	public SimTurtle getTurtle(){
-		for(ISimObject o : allObjects()){
-			if(o instanceof SimTurtle){
+	public SimTurtle getTurtle() {
+		for (ISimObject o : allObjects()) {
+			if (o instanceof SimTurtle) {
 				turtle = (SimTurtle) o;
 			}
 		}
-	return turtle;
+		return turtle;
 	}
-	
+
 	/**
 	 * @param object
-	 *            
+	 * 
 	 * @return the object dolphin
 	 */
-	public SimDolphin getDolphin(){
-		for(ISimObject o : allObjects()){
-			if(o instanceof SimDolphin){
+	public SimDolphin getDolphin() {
+		for (ISimObject o : allObjects()) {
+			if (o instanceof SimDolphin) {
 				dolphin = (SimDolphin) o;
-				
+
 			}
 		}
-	return dolphin;
+		return dolphin;
 	}
+
 	/**
 	 * @param object
-	 *            
+	 * 
 	 * @return the object leader
 	 */
-	public SimFishSchoolLeader getLeader(){
-		for(ISimObject o : allObjects()){
-			if(o instanceof SimFishSchoolLeader){
+	public SimFishSchoolLeader getLeader() {
+		for (ISimObject o : allObjects()) {
+			if (o instanceof SimFishSchoolLeader) {
 				leader = (SimFishSchoolLeader) o;
 			}
 		}
-	return leader;
+		return leader;
 	}
-	
+
 	/**
 	 * @param list
-	 *            
+	 * 
 	 * @return list containing all turtles in the habitat
 	 */
-	public List<ISimObject> listOfTurtles(){
-		for(ISimObject o : allObjects()){
-			if(o instanceof SimFishSchoolLeader){
-				turtleList.add(o);	
+	public List<ISimObject> listOfTurtles() {
+		for (ISimObject o : allObjects()) {
+			if (o instanceof SimFishSchoolLeader) {
+				turtleList.add(o);
 			}
 		}
-	return turtleList;
+		return turtleList;
 	}
-	
-	
+
 	/**
 	 * @param pos
 	 *            A position
@@ -316,10 +313,6 @@ public class Habitat {
 		return new Position(width / 2, height / 2);
 	}
 
-	
-	
-	
-
 	/**
 	 * @return Height of habitat
 	 */
@@ -334,6 +327,7 @@ public class Habitat {
 		y = Math.min(getHeight(), Math.max(0, y));
 		return new Position(x, y);
 	}
+
 	/**
 	 * @return width of habitat
 	 */
@@ -381,7 +375,7 @@ public class Habitat {
 	 * Called when mouse dragging starts
 	 */
 	private void mouseDragDetect(MouseEvent event) {
-//		System.out.println("Drag start: " + event);
+		// System.out.println("Drag start: " + event);
 		dragging = getPosFromEvent(event);
 		dragStartPos = hoveredObject != null ? hoveredObject.getPosition() : null;
 		draggedObject = hoveredObject;
@@ -402,7 +396,7 @@ public class Habitat {
 	 * Called when mouse exits area
 	 */
 	private void mouseExited(MouseEvent event) {
-//		System.out.println("Exited: " + event);
+		// System.out.println("Exited: " + event);
 		/*
 		 * if(draggedObject != null) { draggedObject.onReleased(dragStartPos); }
 		 * draggedObject = null; dragging = null;
@@ -450,8 +444,6 @@ public class Habitat {
 		return result;
 	}
 
-
-	
 	private boolean outOfBounds(Position pos) {
 		return pos.getX() < -getWidth() //
 				|| pos.getX() > 2 * getWidth() //
@@ -470,16 +462,12 @@ public class Habitat {
 	public void removeObject(ISimObject obj) {
 		obj.destroy();
 	}
-	
-
-
-	
 
 	public void step() {
 		// for(int i = 0; i < ducks.size(); i++)
 		// ducks.get(i).step();
 		hoveredObject = null;
-		for (ISimObject obj : new ArrayList<>(objects))  {
+		for (ISimObject obj : new ArrayList<>(objects)) {
 			if (obj.exists()) {
 				obj.step();
 			}

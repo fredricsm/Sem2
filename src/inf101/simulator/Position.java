@@ -9,6 +9,7 @@ package inf101.simulator;
  */
 public class Position {
 	private static final Position ZERO = new Position(0.0, 0.0);
+
 	public static Position makePos(double x, double y) {
 		if (x == 0.0 && y == 0.0) // with an immutable data structure, we can
 									// use sharing for some commonly used values
@@ -16,6 +17,7 @@ public class Position {
 		else
 			return new Position(x, y);
 	}
+
 	private final double x;
 
 	private final double y;
