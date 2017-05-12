@@ -4,6 +4,7 @@ import inf101.simulator.objects.examples.SimCrab;
 import inf101.simulator.objects.examples.SimDolphin;
 import inf101.simulator.objects.examples.SimFishSchool;
 import inf101.simulator.objects.examples.SimFishSchoolLeader;
+import inf101.simulator.objects.examples.SimKraken;
 import inf101.simulator.objects.examples.SimPlants;
 import inf101.simulator.objects.examples.SimResidue;
 import inf101.simulator.objects.examples.SimShark;
@@ -38,6 +39,7 @@ public class Setup {
 		SimMain.registerSimObjectFactory2((Position pos, Habitat hab) -> new SimPlants(pos), "SimPlant™", "plant1.png");
 
 		SimMain.registerSimObjectFactory((Position pos, Habitat hab) -> new SimResidue(pos, hab), "SimResidue™", "food.png");
+		
 
 	}
 
@@ -48,10 +50,8 @@ public class Setup {
 
 	public static void step(SimMain main, Habitat habitat) {
 		if (main.getRandom().nextInt(600) == 0) {
-			System.out.println("TurtleTime");
 			habitat.addObject(new SimTurtle(main.randomPos(), main.getRandom().nextDouble() * 2 + 0.5));
 			habitat.addObject(new SimPlants(main.randomPosBottom()));
-//			habitat.addObject(new SimResidue(main.randomPos(), habitat));
 		}
 	}
 

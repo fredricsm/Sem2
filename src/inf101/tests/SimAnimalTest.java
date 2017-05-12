@@ -8,7 +8,7 @@ import org.junit.Test;
 import inf101.simulator.Habitat;
 import inf101.simulator.Position;
 import inf101.simulator.SimMain;
-import inf101.simulator.objects.examples.SimShark;
+import inf101.simulator.objects.examples.SimKraken;
 
 public class SimAnimalTest {
 	private SimMain main;
@@ -16,7 +16,7 @@ public class SimAnimalTest {
 	@Test
 	public void doNothingTest() {
 		Habitat hab = new Habitat(main, 500, 500);
-		SimShark sim1 = new SimShark(new Position(250, 250), hab, main);
+		SimKraken sim1 = new SimKraken(new Position(250, 250), hab, main);
 		hab.addObject(sim1);
 
 		for (int i = 0; i < 1000; i++) {

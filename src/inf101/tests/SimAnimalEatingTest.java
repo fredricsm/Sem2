@@ -8,7 +8,7 @@ import org.junit.Test;
 import inf101.simulator.Habitat;
 import inf101.simulator.Position;
 import inf101.simulator.SimMain;
-import inf101.simulator.objects.examples.SimShark;
+import inf101.simulator.objects.examples.SimKraken;
 import inf101.simulator.objects.examples.SimTurtle;
 
 public class SimAnimalEatingTest {
@@ -23,7 +23,7 @@ public class SimAnimalEatingTest {
 	@Test
 	public void cantSeeFoodTest() {
 		Habitat hab = new Habitat(main, 2000, 500);
-		SimShark sim1 = new SimShark(new Position(250, 250), hab, main);
+		SimKraken sim1 = new SimKraken(new Position(250, 250), hab, main);
 		SimTurtle feed1 = new SimTurtle(new Position(150, 250), 1.0);
 		hab.addObject(sim1);
 		hab.addObject(feed1);
@@ -63,7 +63,7 @@ public class SimAnimalEatingTest {
 	@Test
 	public void willEatFoodTest() {
 		Habitat hab = new Habitat(main, 500, 500);
-		SimShark sim1 = new SimShark(new Position(250, 250), hab, main);
+		SimKraken sim1 = new SimKraken(new Position(250, 250), hab, main);
 		SimTurtle feed1 = new SimTurtle(new Position(350, 250), 1.0);
 		hab.addObject(sim1);
 		hab.addObject(feed1);

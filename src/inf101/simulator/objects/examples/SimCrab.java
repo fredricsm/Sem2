@@ -53,6 +53,10 @@ public class SimCrab extends AbstractMovingObject {
 
 	}
 
+	public void doom(){
+		habitat.addObject(new SimKraken(pos, habitat, main));
+	}
+	
 	@Override
 	public void step() {
 
@@ -66,7 +70,7 @@ public class SimCrab extends AbstractMovingObject {
 			if (o instanceof SimResidue) {
 				((SimResidue) o).eat(habitat.getResidueNutrition());
 				food.clear();
-				main.bite();
+				main.nom();
 				energy=energy*1.1;
 			}		
 		}
@@ -74,8 +78,7 @@ public class SimCrab extends AbstractMovingObject {
 		if (energy > 500) {
 			System.out.println("Doom");
 			this.destroy();
-			System.exit(0);
-
+			doom();
 		}
 
 		// go towards bottom if we're close to the border

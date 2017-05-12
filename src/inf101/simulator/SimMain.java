@@ -250,7 +250,8 @@ public class SimMain extends Application {
 
 	private AudioClip click = new AudioClip(getClass().getResource("../simulator/sounds/DolphinNoise.wav").toString());
 	private AudioClip bite = new AudioClip(SimMain.class.getResource("../simulator/sounds/SharkBite.wav").toString());
-	
+	private AudioClip nom = new AudioClip(SimMain.class.getResource("../simulator/sounds/Crab.wav").toString());
+
 	public SimMain() {
 		instance = this;
 	}
@@ -287,6 +288,11 @@ public class SimMain extends Application {
 	}
 	public void click(){
 		click.play();
+
+	}
+	
+	public void nom(){
+		nom.play();
 
 	}
 	

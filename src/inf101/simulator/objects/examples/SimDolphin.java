@@ -15,14 +15,13 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 
-public class SimDolphin extends AbstractMovingObject {
+public class SimDolphin extends AbstractMovingObject{
 
 	private static double defaultSpeed = 1.0;
 	private Habitat habitat;
 	private Image animalCoat = MediaHelper.getImage("Dolphin.gif");
 	private List<ISimObject> sharkList = new ArrayList<>();
-	private double energyX = 120;
-	private double energyY = 50;
+	private double energy = 120;
 
 
 	
@@ -37,7 +36,7 @@ public class SimDolphin extends AbstractMovingObject {
 	public void draw(GraphicsContext context) {
 	
 
-		drawBar(context, energyX, -1, Color.RED, Color.GREEN);
+		drawBar(context, energy, -1, Color.RED, Color.GREEN);
 //		super.draw(context);
 		double dir = getDirection().toAngle();
 		if((dir <= 90 && dir >= -90)){
@@ -83,10 +82,10 @@ public class SimDolphin extends AbstractMovingObject {
 		}
 		
 		accelerateTo(defaultSpeed, 0.1);
-		energyX = energyX*0.999;
-		energyY = energyY*0.999;
+		energy= energy*0.999;
+	
 		super.step();
-		if(energyX<50){
+		if(energy<50){
 			this.destroy();
 		}
 	}
@@ -95,14 +94,16 @@ public class SimDolphin extends AbstractMovingObject {
 	@Override
 	public double getHeight() {
 		// TODO Auto-generated method stub
-		return energyY;
+		return energy/2.4;
 	}
 
 	@Override
 	public double getWidth() {
 		// TODO Auto-generated method stub
-		return energyX;
+		return energy;
 	}
+
+
 
 
 
