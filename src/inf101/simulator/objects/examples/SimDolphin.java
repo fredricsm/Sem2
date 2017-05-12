@@ -28,7 +28,7 @@ public class SimDolphin extends AbstractMovingObject{
 	public SimDolphin( Position pos, Habitat hab, SimMain main) {
 		super(new Direction(0), pos, defaultSpeed);
 		this.habitat = hab;
-		//main.click();
+		main.click();
 	
 	}
 
@@ -37,7 +37,7 @@ public class SimDolphin extends AbstractMovingObject{
 	
 		super.draw(context);
 		drawBar(context, energy, -1, Color.RED, Color.GREEN);
-//		super.draw(context);
+		super.draw(context);
 		double dir = getDirection().toAngle();
 		if((dir <= 90 && dir >= -90)){
 			context.setStroke(Color.YELLOW.deriveColor(0.0, 1.0, 1.0, 0.5));

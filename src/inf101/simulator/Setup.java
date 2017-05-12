@@ -15,7 +15,7 @@ public class Setup {
 	public static void setup(SimMain main, Habitat habitat) {
 
 		habitat.addObject(new SimShark(new Position(400, 400), habitat, main));
-		//main.music();
+		main.music();
 
 		habitat.addObject(new SimFishSchoolLeader(new Position(20, 20), habitat));
 

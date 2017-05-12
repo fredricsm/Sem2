@@ -73,7 +73,7 @@ public class SimCrab extends AbstractMovingObject {
 			if (o instanceof SimResidue) {
 				((SimResidue) o).eat(habitat.getResidueNutrition());
 				food.clear();
-				//main.nom();
+				main.nom();
 				energy=energy*1.1;
 			}		
 		}

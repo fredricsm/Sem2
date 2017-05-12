@@ -20,7 +20,7 @@ public class SimShark extends AbstractMovingObject implements ISimListener {
 	private static final double defaultSpeed = 0.5;
 	private Habitat habitat;
 	private Image animalCoat = MediaHelper.getImage("SharkAnim.gif");
-
+	private SimMain main;
 	private double energyX = 250;
 	private double energyY = 150;
 	private SimEvent event = new SimEvent(this, "nom", null, "NOM");
@@ -29,6 +29,7 @@ public class SimShark extends AbstractMovingObject implements ISimListener {
 	public SimShark(Position pos, Habitat hab, SimMain main) {
 		super(new Direction(0), pos, defaultSpeed);
 		this.habitat = hab;
+		this.main = main;
 		habitat.addListener(this, this);
 	}
 
@@ -104,7 +105,7 @@ public class SimShark extends AbstractMovingObject implements ISimListener {
 					energyX = energyX * 1.0019111;
 					energyY = energyY * 1.001911;
 					food.clear();
-					// main.bite();
+					main.bite();
 
 				}
 
