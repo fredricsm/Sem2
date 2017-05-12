@@ -45,7 +45,7 @@ public class SimMain extends Application {
 	private static final double MENU_WIDTH = 100.00;
 	private static final double BUTTON_WIDTH = 75.00;
 	private static SimMain instance;
-	private Image backGround = MediaHelper.getImage("Background3.jpg");
+	private Image backGround = MediaHelper.getImage("background3.jpg");
 
 	
 	private static Map<String, ISimObjectFactory> factoryMap = new HashMap<>();
