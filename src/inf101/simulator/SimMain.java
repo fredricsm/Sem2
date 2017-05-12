@@ -146,7 +146,7 @@ public class SimMain extends Application {
 	 * (0,0) with width=1.0 and height=1.0. (It will be scaled appropriately)
 	 * 
 	 * @param factory
-	 *            A factory that produces ISimObjects
+	 *            A factory that produces ISimObjects within a certain area of the canvas
 	 * @param draw
 	 *            A method object that takes a GraphicsContext and draws an icon
 	 *            for the factory (for use in the GUI)
@@ -205,7 +205,7 @@ public class SimMain extends Application {
 	 * Register a new object factory
 	 * 
 	 * @param factory
-	 *            A factory that produces ISimObjects
+	 *            A factory that produces ISimObjects in the bottom region of the canvas
 	 * @param name
 	 *            (User-friendly) name of the object type
 	 * @param imageName
@@ -286,22 +286,36 @@ public class SimMain extends Application {
 		context.restore();
 
 	}
+	
+	/**
+	 * @return sound and volume for dolphin
+	 */
 	public void click(){
+		click.setVolume(0.3);
 		click.play();
 
 	}
-	
+	/**
+	 * @return sound and volume for crab
+	 */
 	public void nom(){
+		nom.setVolume(0.3);
 		nom.play();
 
 	}
-	
+	/**
+	 * @return sound and volume for shark
+	 */
 	public void bite(){
+		bite.setVolume(0.3);
 		bite.play();
 
 	}
+	/**
+	 * @return sound and volume for backgroundmusic
+	 */
 	public void music(){
-		backGroundMusic.setVolume(0.5); 
+		backGroundMusic.setVolume(0.3); 
 		backGroundMusic.play();
 	}
 	

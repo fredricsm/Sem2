@@ -35,7 +35,7 @@ public class SimDolphin extends AbstractMovingObject{
 	@Override
 	public void draw(GraphicsContext context) {
 	
-
+		super.draw(context);
 		drawBar(context, energy, -1, Color.RED, Color.GREEN);
 //		super.draw(context);
 		double dir = getDirection().toAngle();
@@ -53,11 +53,10 @@ public class SimDolphin extends AbstractMovingObject{
 
 
 	
-	
+
 	
 	@Override
 	public void step() {
-		
 		List<ISimObject> nearbyObjects = habitat.nearbyObjects(this, getRadius() + 2000);
 		for (ISimObject o : nearbyObjects) {
 			if (o instanceof SimShark) {				

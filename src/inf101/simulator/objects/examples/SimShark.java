@@ -36,6 +36,7 @@ public class SimShark extends AbstractMovingObject implements ISimListener {
 
 	@Override
 	public void draw(GraphicsContext context) {
+		super.draw(context);
 
 		double dir = getDirection().toAngle();
 		drawBar(context, energyX, 0, Color.RED, Color.GREEN);
@@ -46,8 +47,6 @@ public class SimShark extends AbstractMovingObject implements ISimListener {
 		} else if (dir < -90 || dir < 180) {
 			context.drawImage(animalCoat, 0, 0, getWidth(), getHeight());
 		}
-
-		// direction image is walking in.
 
 	}
 
@@ -71,7 +70,6 @@ public class SimShark extends AbstractMovingObject implements ISimListener {
 		for (ISimObject obj : habitat.nearbyObjects(this, getRadius() + 200)) {
 			if (obj instanceof IEdibleObject) {
 				return (IEdibleObject) obj;
-
 			}
 		}
 
@@ -104,8 +102,8 @@ public class SimShark extends AbstractMovingObject implements ISimListener {
 					habitat.triggerEvent(event);
 					getBestFood().eat(getBestFood().getNutritionalValue());
 					createResidue();
-					energyX = energyX * 1.0011111;
-					energyY = energyY * 1.001111;
+					energyX = energyX * 1.0019111;
+					energyY = energyY * 1.001911;
 					food.clear();
 					main.bite();
 					
@@ -129,8 +127,8 @@ public class SimShark extends AbstractMovingObject implements ISimListener {
 			}
 		}
 		accelerateTo(defaultSpeed, 0.1);
-		energyX = energyX * 0.9999198;
-		energyY = energyY * 0.9999198;
+		energyX = energyX * 0.9999598;
+		energyY = energyY * 0.9999598;
 
 		super.step();
 

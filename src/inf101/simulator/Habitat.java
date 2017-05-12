@@ -147,7 +147,11 @@ public class Habitat {
 				.collect(Collectors.toCollection(() -> new ArrayList<>(objects.size())));
 	}
 
-
+	/**
+	 * @param double
+	 *            
+	 * @return Nutritional Value
+	 */
 	public double getResidueNutrition(){
 		for(ISimObject o : allObjects()){
 			if(o instanceof SimResidue){
@@ -157,7 +161,11 @@ public class Habitat {
 	return residue.getNutritionalValue();
 	}
 	
-	
+	/**
+	 * @param object
+	 *            
+	 * @return the object shark
+	 */
 	public SimShark getShark(){
 		for(ISimObject o : allObjects()){
 			if(o instanceof SimShark){
@@ -166,7 +174,11 @@ public class Habitat {
 		}
 	return shark;
 	}
-	
+	/**
+	 * @param object
+	 *            
+	 * @return the object turtle
+	 */
 	public SimTurtle getTurtle(){
 		for(ISimObject o : allObjects()){
 			if(o instanceof SimTurtle){
@@ -176,7 +188,11 @@ public class Habitat {
 	return turtle;
 	}
 	
-	
+	/**
+	 * @param object
+	 *            
+	 * @return the object dolphin
+	 */
 	public SimDolphin getDolphin(){
 		for(ISimObject o : allObjects()){
 			if(o instanceof SimDolphin){
@@ -186,14 +202,11 @@ public class Habitat {
 		}
 	return dolphin;
 	}
-	
-	public int randomNr(){
-		int a = r.nextInt(5);
-		return a;
-	}
-	
-	
-	
+	/**
+	 * @param object
+	 *            
+	 * @return the object leader
+	 */
 	public SimFishSchoolLeader getLeader(){
 		for(ISimObject o : allObjects()){
 			if(o instanceof SimFishSchoolLeader){
@@ -203,6 +216,11 @@ public class Habitat {
 	return leader;
 	}
 	
+	/**
+	 * @param list
+	 *            
+	 * @return list containing all turtles in the habitat
+	 */
 	public List<ISimObject> listOfTurtles(){
 		for(ISimObject o : allObjects()){
 			if(o instanceof SimFishSchoolLeader){
@@ -302,7 +320,9 @@ public class Habitat {
 	
 	
 
-	
+	/**
+	 * @return Height of habitat
+	 */
 	public double getHeight() {
 		return height;
 	}
@@ -314,7 +334,9 @@ public class Habitat {
 		y = Math.min(getHeight(), Math.max(0, y));
 		return new Position(x, y);
 	}
-
+	/**
+	 * @return width of habitat
+	 */
 	public double getWidth() {
 		return width;
 	}

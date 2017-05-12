@@ -39,6 +39,7 @@ public abstract class AbstractMovingObject extends AbstractSimObject implements 
 
 	@Override
 	public void draw(GraphicsContext context) {
+		super.draw(context);
 		context.setLineWidth(2);
 		context.setStroke(Color.CHARTREUSE);
 		context.setFill(Color.LAWNGREEN);

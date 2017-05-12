@@ -52,7 +52,10 @@ public class SimCrab extends AbstractMovingObject {
 		// direction image is walking in.
 
 	}
-
+	/**
+	 * Spawns the son of crabby. The mighty kraken!
+	 * 
+	 */
 	public void doom(){
 		habitat.addObject(new SimKraken(pos, habitat, main));
 	}
