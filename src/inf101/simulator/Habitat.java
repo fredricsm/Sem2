@@ -12,7 +12,9 @@ import inf101.simulator.objects.ISimObject;
 import inf101.simulator.objects.SimEvent;
 import inf101.simulator.objects.examples.SimDolphin;
 import inf101.simulator.objects.examples.SimFishSchoolLeader;
+import inf101.simulator.objects.examples.SimResidue;
 import inf101.simulator.objects.examples.SimShark;
+import inf101.simulator.objects.examples.SimTurtle;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -80,7 +82,6 @@ public class Habitat {
 	}
 	private List<ISimObject> objects = new ArrayList<>();
 
-
 	protected double width;
 	protected double height;
 	private ISimObject selectedObject;
@@ -90,8 +91,12 @@ public class Habitat {
 	private SimMain gui;
 	private Position mousePos;
 	private Position dragStartPos;
+	
 	private SimFishSchoolLeader leader;
 	private SimShark shark;
+	private SimTurtle turtle;
+	private SimResidue residue;
+	
 	private List<ISimObject> turtleList = new ArrayList<>();
 	private Random r = new Random();
 	private List<Pair<ISimObject, ISimListener>> listeners = new ArrayList<>();
@@ -126,6 +131,10 @@ public class Habitat {
 	}
 
 
+	public double turtleCount(double turtleCount) {
+		return turtleCount;
+	}
+
 	
 	/**
 	 * @return A list of all the objects in the habitat
@@ -139,6 +148,16 @@ public class Habitat {
 	}
 
 
+	public double getResidueNutrition(){
+		for(ISimObject o : allObjects()){
+			if(o instanceof SimResidue){
+				residue = (SimResidue) o;
+			}
+		}
+	return residue.getNutritionalValue();
+	}
+	
+	
 	public SimShark getShark(){
 		for(ISimObject o : allObjects()){
 			if(o instanceof SimShark){
@@ -147,6 +166,16 @@ public class Habitat {
 		}
 	return shark;
 	}
+	
+	public SimTurtle getTurtle(){
+		for(ISimObject o : allObjects()){
+			if(o instanceof SimTurtle){
+				turtle = (SimTurtle) o;
+			}
+		}
+	return turtle;
+	}
+	
 	
 	public SimDolphin getDolphin(){
 		for(ISimObject o : allObjects()){
@@ -270,15 +299,9 @@ public class Habitat {
 	}
 
 	
-	public Position getBottom(){
-		return new Position(950,0);
-	}
-	public Position getLeft(){
-		return new Position(0,0);
-	}
-	public Position getRight(){
-		return new Position( 1900,0);
-	}
+	
+	
+
 	
 	public double getHeight() {
 		return height;
@@ -434,7 +457,7 @@ public class Habitat {
 		// for(int i = 0; i < ducks.size(); i++)
 		// ducks.get(i).step();
 		hoveredObject = null;
-		for (ISimObject obj : objects) {
+		for (ISimObject obj : new ArrayList<>(objects))  {
 			if (obj.exists()) {
 				obj.step();
 			}

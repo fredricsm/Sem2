@@ -5,6 +5,7 @@ import inf101.simulator.objects.examples.SimDolphin;
 import inf101.simulator.objects.examples.SimFishSchool;
 import inf101.simulator.objects.examples.SimFishSchoolLeader;
 import inf101.simulator.objects.examples.SimPlants;
+import inf101.simulator.objects.examples.SimResidue;
 import inf101.simulator.objects.examples.SimShark;
 import inf101.simulator.objects.examples.SimTurtle;
 
@@ -18,7 +19,7 @@ public class Setup {
 
 		habitat.addObject(new SimFishSchoolLeader(new Position(20, 20), habitat));
 
-		// habitat.addObject(new SimCrab(new Position(100, 100), habitat));
+		//habitat.addObject(new SimCrab(new Position(100, 100), habitat));
 
 		for (int i = 0; i < 100; i++) {
 			habitat.addObject(new SimFishSchool(new Position(i, i), habitat));
@@ -32,9 +33,11 @@ public class Setup {
 		
 		SimMain.registerSimObjectFactory((Position pos, Habitat hab) -> new SimDolphin(pos, hab, main), "SimDolphin™","Dolphin.gif");
 		
-		SimMain.registerSimObjectFactory2((Position pos, Habitat hab) -> new SimCrab(pos, hab), "SimCrab™", "Crab.png");
+		SimMain.registerSimObjectFactory2((Position pos, Habitat hab) -> new SimCrab(pos, hab, main), "SimCrab™", "Crab.png");
 	
 		SimMain.registerSimObjectFactory2((Position pos, Habitat hab) -> new SimPlants(pos), "SimPlant™", "plant1.png");
+
+		SimMain.registerSimObjectFactory((Position pos, Habitat hab) -> new SimResidue(pos, hab), "SimResidue™", "food.png");
 
 	}
 
@@ -48,7 +51,7 @@ public class Setup {
 			System.out.println("TurtleTime");
 			habitat.addObject(new SimTurtle(main.randomPos(), main.getRandom().nextDouble() * 2 + 0.5));
 			habitat.addObject(new SimPlants(main.randomPosBottom()));
-
+//			habitat.addObject(new SimResidue(main.randomPos(), habitat));
 		}
 	}
 

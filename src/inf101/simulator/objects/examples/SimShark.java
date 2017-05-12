@@ -23,10 +23,10 @@ public class SimShark extends AbstractMovingObject implements ISimListener {
 
 	private double energyX = 250;
 	private double energyY = 150;
-	private	SimEvent event = new SimEvent(this, "nom", null, "NOM");
+	private SimEvent event = new SimEvent(this, "nom", null, "NOM");
 	private List<IEdibleObject> food = new ArrayList<>();
 	private SimMain main;
-
+	
 	public SimShark(Position pos, Habitat hab, SimMain main) {
 		super(new Direction(0), pos, defaultSpeed);
 		this.habitat = hab;
@@ -34,40 +34,39 @@ public class SimShark extends AbstractMovingObject implements ISimListener {
 		habitat.addListener(this, this);
 	}
 
-	
 	@Override
 	public void draw(GraphicsContext context) {
-		
+
 		double dir = getDirection().toAngle();
 		drawBar(context, energyX, 0, Color.RED, Color.GREEN);
-		if((dir <= 90 && dir >= -90)){
+		if ((dir <= 90 && dir >= -90)) {
 			context.translate(0, getHeight());
 			context.scale(1, -1);
 			context.drawImage(animalCoat, 0, 0, getWidth(), getHeight());
-		}
-		else if(dir < -90 || dir < 180 ){
+		} else if (dir < -90 || dir < 180) {
 			context.drawImage(animalCoat, 0, 0, getWidth(), getHeight());
 		}
-		
-		// direction image is walking in.
-		
-	}
 
+		// direction image is walking in.
+
+	}
 
 	public IEdibleObject getBestFood() {
 		IEdibleObject best = food.get(0);
-				for(IEdibleObject edb : food){
-					if(food.isEmpty()){
-						return null;	
-					}
-					else if(edb.getNutritionalValue() > best.getNutritionalValue()){
-						best = edb;
-					}
-				}
+		for (IEdibleObject edb : food) {
+			if (food.isEmpty()) {
+				return null;
+			} else if (edb.getNutritionalValue() > best.getNutritionalValue()) {
+				best = edb;
+			}
+		}
 		return best;
-	
-	}
 
+	}
+	public void createResidue(){
+		habitat.addObject(new SimResidue(pos, habitat));
+	}
+	
 	public IEdibleObject getClosestFood() {
 		for (ISimObject obj : habitat.nearbyObjects(this, getRadius() + 200)) {
 			if (obj instanceof IEdibleObject) {
@@ -90,32 +89,30 @@ public class SimShark extends AbstractMovingObject implements ISimListener {
 		return energyX;
 	}
 
-	
 	@Override
 	public void step() {
-		
 		List<ISimObject> nearbyObjects = habitat.nearbyObjects(this, getRadius() + 400);
 		for (ISimObject o : nearbyObjects) {
-			if (o instanceof SimTurtle) {				
+			if (o instanceof SimTurtle) {
 				food.add((IEdibleObject) o);
 				dir = dir.turnTowards(directionTo(getBestFood().getPosition()), 1);
-				accelerateTo(defaultSpeed*2, -0.2);
+				accelerateTo(defaultSpeed * 2, -0.2);
 
 				if (distanceTo(getBestFood()) < 100) {
-					accelerateTo(defaultSpeed*5, -0.2);
+					accelerateTo(defaultSpeed * 5, -0.2);
 					dir = dir.turnTowards(directionTo(getBestFood().getPosition()), 5);
 					habitat.triggerEvent(event);
 					getBestFood().eat(getBestFood().getNutritionalValue());
+					createResidue();
 					energyX = energyX * 1.0011111;
 					energyY = energyY * 1.001111;
-
 					food.clear();
 					main.bite();
-
+					
 				}
 
 			}
-			
+
 			else if (o instanceof SimDolphin) {
 				dir = dir.turnTowards(-90, 5);
 				accelerateTo(defaultSpeed * 5, 1);
@@ -139,13 +136,11 @@ public class SimShark extends AbstractMovingObject implements ISimListener {
 
 	}
 
-	
-	
 	@Override
 	public void eventHappened(SimEvent event) {
 		event.getType();
 		say("Food!");
-		// System.out.println("This happened: " + event);
+		System.out.println("This happened: " + event);
 
 	}
 
