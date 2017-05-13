@@ -18,21 +18,21 @@ public class Blob extends AbstractMovingObject {
 	public void draw(GraphicsContext context) {
 		super.draw(context);
 	}
-	
+
 	@Override
 	public double getHeight() {
 		return 50;
 	}
-	
+
 	@Override
 	public double getWidth() {
 		return 50;
 	}
-	
+
 	@Override
 	public void step() {
-		dir = dir.turn(r.nextDouble()-0.2);
-		
+		dir = dir.turn(r.nextDouble() - 0.2);
+
 		super.step();
 	}
 }

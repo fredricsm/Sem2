@@ -11,7 +11,8 @@ import javafx.scene.input.MouseButton;
  */
 public interface ISimObject {
 	/**
-	 * @param pos A position
+	 * @param pos
+	 *            A position
 	 * @return True if position is inside this object
 	 */
 	boolean contains(Position pos);
@@ -54,7 +55,7 @@ public interface ISimObject {
 	 * @return Height of the object
 	 */
 	double getHeight();
-	
+
 	/**
 	 * @return The position (same as new Position(getX(), getY()))
 	 */
@@ -69,35 +70,41 @@ public interface ISimObject {
 	 * @return Width of the object
 	 */
 	double getWidth();
-	
+
 	/**
 	 * Same as getPosition().getY()
 	 * 
 	 * @return X coordinate
 	 */
 	double getX();
-	
+
 	/**
 	 * Same as getPosition().getY()
 	 * 
 	 * @return Y coordinate
 	 */
 	double getY();
-	
+
 	/**
 	 * Called whenever the object is clicked by the mouse / touched.
 	 * 
-	 * @param button The mouse button that was pressed. Typically {@link MouseButton#PRIMARY}, {@link MouseButton#SECONDARY} or {@link MouseButton#MIDDLE}.
+	 * @param button
+	 *            The mouse button that was pressed. Typically
+	 *            {@link MouseButton#PRIMARY}, {@link MouseButton#SECONDARY} or
+	 *            {@link MouseButton#MIDDLE}.
 	 */
 	void onClicked(MouseButton button);
 
 	/**
 	 * Called when the object has been dragged.
 	 * 
-	 * This method is called after dragging is completed, when the mouse/finger is released.
+	 * This method is called after dragging is completed, when the mouse/finger
+	 * is released.
 	 * 
-	 * @param startPos The position the object was at when dragging started
-	 * @param endPos The position of the mouse when released
+	 * @param startPos
+	 *            The position the object was at when dragging started
+	 * @param endPos
+	 *            The position of the mouse when released
 	 */
 	void onDragged(Position startPos, Position endPos);
 
@@ -106,8 +113,10 @@ public interface ISimObject {
 	 * 
 	 * This method is called during dragging, whenever the mouse/finger moves.
 	 * 
-	 * @param startPos The position the object was at when dragging started
-	 * @param currentPos The current position of the mouse
+	 * @param startPos
+	 *            The position the object was at when dragging started
+	 * @param currentPos
+	 *            The current position of the mouse
 	 */
 	void onDragging(Position startPos, Position currentPos);
 

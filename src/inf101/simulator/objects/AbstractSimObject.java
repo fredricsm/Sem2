@@ -10,7 +10,7 @@ import javafx.scene.text.Font;
 
 public abstract class AbstractSimObject implements ISimObject {
 	protected Direction dir;
-	private Position pos;
+	protected Position pos;
 	private boolean exists = true;
 	protected boolean hideAnnotations = false;
 	private String message = null;
@@ -158,7 +158,6 @@ public abstract class AbstractSimObject implements ISimObject {
 	public Position getPosition() {
 		return pos;
 	}
-
 
 	@Override
 	public double getRadius() {

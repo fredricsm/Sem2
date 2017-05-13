@@ -32,9 +32,9 @@ public class MediaHelper {
 
 		if (img == null) // fallback
 			img = new Image(fileName);
-		
+
 		images.put(fileName, img);
-		
+
 		return img;
 	}
 
