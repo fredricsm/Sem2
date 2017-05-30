@@ -1,5 +1,6 @@
 package inf101.simulator.objects.examples;
 
+import java.util.List;
 import java.util.Random;
 
 import inf101.simulator.Direction;
@@ -40,10 +41,10 @@ public class SimKraken extends AbstractMovingObject {
 
 	}
 
-	public IEdibleObject getClosestFood() {
+	public AbstractMovingObject getClosestFood() {
 		for (ISimObject obj : habitat.nearbyObjects(this, getRadius() + 200)) {
-			if (obj instanceof SimTurtle || obj instanceof SimDolphin) {
-				return (IEdibleObject) obj;
+			if (obj instanceof AbstractMovingObject) {
+				return (AbstractMovingObject) obj;
 
 			}
 		}
@@ -63,10 +64,21 @@ public class SimKraken extends AbstractMovingObject {
 	}
 
 	@Override
-	public void step() {
-
+	public void step() throws NullPointerException {
 		dir = dir.turn(r.nextDouble() - 0.2);
 
+		List<ISimObject> nearbyObjects = habitat.nearbyObjects(this, getRadius() + 4000);
+		for (ISimObject o : nearbyObjects) {
+			if (o instanceof AbstractMovingObject) {
+					dir = dir.turnTowards(directionTo(getClosestFood().getPosition()), 1);
+					accelerateTo(defaultSpeed * 2, -0.2);
+
+				if (distanceTo(getClosestFood()) < 5) {
+					getClosestFood().destroy();
+				}
+				
+			}
+		}
 		// go towards center if we're close to the border
 		if (!habitat.contains(getPosition(), getRadius() * 1.2)) {
 			dir = dir.turnTowards(directionTo(habitat.getCenter()), 5);

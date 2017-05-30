@@ -2,12 +2,16 @@ package inf101.tests;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.Test;
 
 import inf101.simulator.Habitat;
 import inf101.simulator.Position;
 import inf101.simulator.SimMain;
+import inf101.simulator.objects.IEdibleObject;
 import inf101.simulator.objects.examples.SimShark;
 import inf101.simulator.objects.examples.SimTurtle;
 
@@ -36,7 +40,8 @@ public class SimAnimalBestFoodTest {
 		hab.addObject(feed2);
 		hab.addObject(feed3);
 		hab.addObject(feed4);
-
+		
+		
 		assertEquals(feed4, sim1.getClosestFood());
 		assertEquals(feed3, sim1.getBestFood());
 	}

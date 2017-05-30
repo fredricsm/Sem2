@@ -4,6 +4,7 @@ import inf101.simulator.objects.examples.SimCrab;
 import inf101.simulator.objects.examples.SimDolphin;
 import inf101.simulator.objects.examples.SimFishSchool;
 import inf101.simulator.objects.examples.SimFishSchoolLeader;
+import inf101.simulator.objects.examples.SimKraken;
 import inf101.simulator.objects.examples.SimPlants;
 import inf101.simulator.objects.examples.SimResidue;
 import inf101.simulator.objects.examples.SimShark;
@@ -39,6 +40,7 @@ public class Setup {
 
 		SimMain.registerSimObjectFactory((Position pos, Habitat hab) -> new SimResidue(pos, hab), "SimResidue™", "food.png");
 		
+		SimMain.registerSimObjectFactory((Position pos, Habitat hab) -> new SimKraken(pos, hab, main), "SimKraken™","kraken.png");
 
 	}
 
